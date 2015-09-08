@@ -38,13 +38,27 @@ if (Meteor.isClient) {
       event.preventDefault();
 
       // Get value from form element
-      var text = event.target.text.value;
+      var receiver = event.target.item_receiver.value;
+      var title = event.target.item_title.value;
+      var link = event.target.item_link.value;
+      var type = event.target.item_type.value;
+      var length = event.target.item_length.value;
+      var tags = event.target.item_tags.value;
+
+      var item = {receiver: receiver,
+                  title: title,
+                  link: link,
+                  type: type,
+                  length: length,
+                  tags: tags
+                };
+
 
       // Insert a task into the collection
-      Meteor.call("addTask", text);
+      Meteor.call("addTask", item);
 
       // Clear form
-      event.target.text.value = "";
+      event.target.reset();
     },
     "change .hide-completed input": function (event) {
       Session.set("hideCompleted", event.target.checked);
@@ -73,14 +87,19 @@ if (Meteor.isClient) {
 }
 
 Meteor.methods({
-  addTask: function (text) {
+  addTask: function (item) {
     // Make sure the user is logged in before inserting a task
     if (! Meteor.userId()) {
       throw new Meteor.Error("not-authorized");
     }
 
     Tasks.insert({
-      text: text,
+      receiver: item.receiver,
+      title: item.title,
+      link: item.link,
+      type: item.type,
+      length: item.length,
+      tags: item.tags,
       createdAt: new Date(),
       owner: Meteor.userId(),
       username: Meteor.user().username

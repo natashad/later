@@ -16,7 +16,22 @@
 
       {{#if currentUser}}
         <form class="new-task">
-          <input type="text" name="text" placeholder="Type to add new tasks" />
+          <input type="text" name="item_receiver" placeholder="Type to add username of receiver" />
+          <input type="text" name="item_title" placeholder="Type to add new title" />
+          <input type="text" name="item_link" placeholder="Type to add new link" />
+          <select name="item_type">
+            <option value="article">Article</option>
+            <option value="video">Video</option>
+            <option value="music">Music</option>
+            <option value="other">Other</option>
+          </select>
+          <select name="item_length">
+            <option value="short">Short</option>
+            <option value="medium">Medium</option>
+            <option value="long">Long</option>
+          </select>
+          <input type="text" name="item_tags" placeholder="Type tags separated by spaces" />
+          <button type="submit">Submit</button>
         </form>
       {{/if}}
     </header>
@@ -35,6 +50,6 @@
 
     <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
 
-    <span class="text"><strong>{{username}}</strong> - {{text}}</span>
+    <span class="text"><strong>{{username}}</strong> - {{receiver}} ; {{title}} ; {{link}} ; {{type}} ; {{length}} ; {{tags}}</span>
   </li>
 </template>
