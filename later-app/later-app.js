@@ -5,7 +5,7 @@ if (Meteor.isServer) {
   // Only publish tasks that are public or belong to the current user
   Meteor.publish("tasks", function () {
     return Tasks.find(
-        { creator: this.userId }
+        { $or: [ {creator: this.userId }, {receiver: this.userId} ] }
     );
   });
 
