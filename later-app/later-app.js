@@ -1,5 +1,17 @@
 Tasks = new Mongo.Collection("tasks");
 
+function getUsernameForID(ID) {
+  return Meteor.users.find({
+    _id: ID
+  }).username;
+}
+
+function getIDForUsername(username) {
+  return Meteor.users.find({
+    username: username
+  })._id;
+}
+
 if (Meteor.isServer) {
   // This code only runs on the server
   // Only publish tasks that are public or belong to the current user
