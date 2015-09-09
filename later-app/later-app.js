@@ -1,17 +1,5 @@
 Tasks = new Mongo.Collection("tasks");
 
-function getUsernameForID(ID) {
-  return Meteor.users.find({
-    _id: ID
-  }).username;
-}
-
-function getIDForUsername(username) {
-  return Meteor.users.find({
-    username: username
-  })._id;
-}
-
 if (Meteor.isServer) {
   // This code only runs on the server
   // Only publish tasks that are public or belong to the current user
@@ -20,6 +8,22 @@ if (Meteor.isServer) {
         { creator: this.userId }
     );
   });
+
+  function getUsernameForID(ID) {
+    var user =  Meteor.users.findOne({
+      _id: ID
+    });
+
+    return user? user.username : undefined;
+  }
+
+  function getIDForUsername(user) {
+    var user =  Meteor.users.findOne({
+      username: user
+    });
+
+    return user? user._id : undefined;
+  }
 }
 
 if (Meteor.isClient) {
@@ -99,8 +103,14 @@ Meteor.methods({
       throw new Meteor.Error("not-authorized");
     }
 
+    var receiverID = getIDForUsername(item.receiver);
+
+    if (! receiverID) {
+      throw new Meteor.Error("user does not exit");
+    }
+
     Tasks.insert({
-      receiver: item.receiver,
+      receiver: receiverID,
       title: item.title,
       link: item.link,
       type: item.type,
@@ -108,7 +118,7 @@ Meteor.methods({
       tags: item.tags,
       createdAt: new Date(),
       creator: Meteor.userId(),
-      username: Meteor.user().username
+      creatorname: Meteor.user().username
     });
   },
   deleteTask: function (taskId) {
