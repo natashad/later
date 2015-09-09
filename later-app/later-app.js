@@ -5,7 +5,7 @@ if (Meteor.isServer) {
   // Only publish tasks that are public or belong to the current user
   Meteor.publish("tasks", function () {
     return Tasks.find(
-        { owner: this.userId }
+        { creator: this.userId }
     );
   });
 }
@@ -65,12 +65,6 @@ if (Meteor.isClient) {
     }
   });
 
-  Template.task.helpers({
-    isOwner: function () {
-      return this.owner === Meteor.userId();
-    }
-  });
-
   Template.task.events({
     "click .toggle-checked": function () {
       // Set the checked property to the opposite of its current value
@@ -101,14 +95,14 @@ Meteor.methods({
       length: item.length,
       tags: item.tags,
       createdAt: new Date(),
-      owner: Meteor.userId(),
+      creator: Meteor.userId(),
       username: Meteor.user().username
     });
   },
   deleteTask: function (taskId) {
     var task = Tasks.findOne(taskId);
-    if (task.owner !== Meteor.userId()) {
-      // make sure only the owner can delete it
+    if (task.creator !== Meteor.userId()) {
+      // make sure only the creator can delete it
       throw new Meteor.Error("not-authorized");
     }
 
@@ -116,8 +110,8 @@ Meteor.methods({
   },
   setChecked: function (taskId, setChecked) {
     var task = Tasks.findOne(taskId);
-    if (task.owner !== Meteor.userId()) {
-      // make sure only the owner can check it off
+    if (task.creator !== Meteor.userId()) {
+      // make sure only the creator can check it off
       throw new Meteor.Error("not-authorized");
     }
 
