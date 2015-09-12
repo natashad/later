@@ -58,10 +58,11 @@ if (Meteor.isClient) {
     }
   });
 
-  Template.body.onRendered(function() {
-    Meteor.typeahead.inject('.typeahead');
-  });
+  Template.addItemForm.onRendered(function() {
+    Meteor.typeahead.inject();
+  }),
 
+  // TODO : move a bunch of this to the form template
   Template.body.events({
     "submit .new-item-form": function (event) {
       // Prevent default browser form submit
@@ -157,6 +158,10 @@ if (Meteor.isClient) {
     passwordSignupFields: "USERNAME_ONLY"
   });
 
+  Meteor.startup(function() {
+    // Meteor.typeahead.inject();
+  });
+// End of Client only code
 }
 
 Meteor.methods({
