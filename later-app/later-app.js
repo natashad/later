@@ -30,11 +30,7 @@ if (Meteor.isServer) {
 if (Meteor.isClient) {
   // This code only runs on the client
   Meteor.subscribe("tasks");
-  //
-  // Template.body.friends = function () {
-  //   return ['natasha','nathan', 'leslie', 'chuck'];
-  // };
-
+  Meteor.subscribe("friends");
   Template.body.helpers({
     tasks: function () {
       if (Session.get("hideCompleted")) {
@@ -52,7 +48,9 @@ if (Meteor.isClient) {
       return Tasks.find({checked: {$ne: true}}).count();
     },
     friends: function() {
-      return ['natasha','nathan', 'leslie', 'chuck'];
+      var case1 = Friends.find({user_id: Meteor.userId()}).map(function(f) {return f.friend_id});
+      var case2 = Friends.find({friend_id: Meteor.userId()}).map(function(f) {return f.user_id});
+      return case1.concat(case2);
     }
   });
 
@@ -168,7 +166,7 @@ Meteor.methods({
     var receiverID = getIDForUsername(item.receiver);
 
     if (! receiverID) {
-      throw new Meteor.Error("user does not exit");
+      throw new Meteor.Error("user " + item.receiver + " does not exist");
     }
 
     Tasks.insert({
@@ -181,6 +179,14 @@ Meteor.methods({
       createdAt: new Date(),
       creator: Meteor.userId()
     });
+
+    if (!Friends.findOne({user_id: Meteor.userId(), friend_id: receiverID})) {
+      Friends.insert({
+        user_id: Meteor.userId(),
+        friend_id: receiverID
+      })
+    }
+
   },
   deleteTask: function (taskId) {
     var task = Tasks.findOne(taskId);
