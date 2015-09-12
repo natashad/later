@@ -189,7 +189,7 @@ Meteor.methods({
   },
   deleteTask: function (taskId) {
     var task = Tasks.findOne(taskId);
-    if (task.creator !== Meteor.userId()) {
+    if (task.creator !== Meteor.userId() && task.receiver !== Meteor.userId()) {
       // make sure only the creator can delete it
       throw new Meteor.Error("not-authorized");
     }
