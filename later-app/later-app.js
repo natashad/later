@@ -9,6 +9,11 @@ if (Meteor.isServer) {
         { $or: [ {creator: this.userId }, {receiver: this.userId} ] }
     );
   });
+  Meteor.publish("friends", function() {
+    return Friends.find(
+      { $or : [ {user_name: getUsernameForID(this.userId)}, {friend_name: getUsernameForID(this.userId)}]}
+    );
+  });
 
   function getUsernameForID(ID) {
     var user =  Meteor.users.findOne({
@@ -47,15 +52,10 @@ if (Meteor.isClient) {
     incompleteCount: function () {
       return Tasks.find({checked: {$ne: true}}).count();
     },
-    // TODO: Switch to this when autocomplete works
-    friends_temp: function() {
-      var case1 = Friends.find({user_name: Meteor.user().username}).map(function(f) {return f.friend_name});
-      var case2 = Friends.find({friend_name: Meteor.user().username}).map(function(f) {return f.user_name});
-      return case1.concat(case2);
-    },
     friends: function() {
-      return ['leslie', 'natasha', 'nathan', 'chuck'];
-    }
+      var case1 = Friends.find().map(function(f) {return [f.friend_name, f.user_name]});
+      return $.unique([].concat.apply([], case1));
+    },
   });
 
   Template.addItemForm.onRendered(function() {
@@ -158,9 +158,6 @@ if (Meteor.isClient) {
     passwordSignupFields: "USERNAME_ONLY"
   });
 
-  Meteor.startup(function() {
-    // Meteor.typeahead.inject();
-  });
 // End of Client only code
 }
 
