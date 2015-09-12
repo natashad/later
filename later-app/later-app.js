@@ -87,6 +87,26 @@ if (Meteor.isClient) {
     }
   });
 
+  Template.task.helpers({
+    'getCreator': function () {
+      Meteor.call('getUsername', this.creator, function (error, result) {
+        creatorName.set(result);
+      });
+      return creatorName.get();
+    },
+    'getReceiver': function () {
+      Meteor.call('getUsername', this.receiver, function (error, result) {
+        receiverName.set(result);
+      });
+      return receiverName.get();
+    }
+  });
+
+  Template.body.created = function () {
+    creatorName = new ReactiveVar();
+    receiverName = new ReactiveVar();
+  };
+
   Template.task.events({
     "click .toggle-checked": function () {
       // Set the checked property to the opposite of its current value
@@ -123,8 +143,7 @@ Meteor.methods({
       length: item.length,
       tags: item.tags,
       createdAt: new Date(),
-      creator: Meteor.userId(),
-      creatorname: Meteor.user().username
+      creator: Meteor.userId()
     });
   },
   deleteTask: function (taskId) {
@@ -145,4 +164,7 @@ Meteor.methods({
 
     Tasks.update(taskId, { $set: { checked: setChecked} });
   },
+  getUsername: function (id) {
+    return getUsernameForID(id);
+  }
 });
