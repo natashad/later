@@ -48,8 +48,8 @@ if (Meteor.isClient) {
       return Tasks.find({checked: {$ne: true}}).count();
     },
     friends: function() {
-      var case1 = Friends.find({user_id: Meteor.userId()}).map(function(f) {return f.friend_id});
-      var case2 = Friends.find({friend_id: Meteor.userId()}).map(function(f) {return f.user_id});
+      var case1 = Friends.find({user_name: Meteor.user().username}).map(function(f) {return f.friend_name});
+      var case2 = Friends.find({friend_name: Meteor.user().username}).map(function(f) {return f.user_name});
       return case1.concat(case2);
     }
   });
@@ -142,7 +142,6 @@ if (Meteor.isClient) {
   Template.task.events({
     "click .toggle-checked": function () {
       // Set the checked property to the opposite of its current value
-      console.log("CHECKED");
       Meteor.call("setChecked", this._id, ! this.checked);
     },
     "click .delete": function () {
@@ -180,10 +179,10 @@ Meteor.methods({
       creator: Meteor.userId()
     });
 
-    if (!Friends.findOne({user_id: Meteor.userId(), friend_id: receiverID})) {
+    if (!Friends.findOne({user_name: Meteor.user().username, friend_name: item.receiver})) {
       Friends.insert({
-        user_id: Meteor.userId(),
-        friend_id: receiverID
+        user_name: Meteor.user().username,
+        friend_name: item.receiver
       })
     }
 
