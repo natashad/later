@@ -78,6 +78,12 @@ if (Meteor.isClient) {
     },
     "change .hide-completed input": function (event) {
       Session.set("hideCompleted", event.target.checked);
+    },
+    "click .new-item-trigger": function (event) {
+        $('.new-item-form').show();
+    },
+    "click .close-form a": function (event) {
+      $('.new-item-form').hide();
     }
   });
 

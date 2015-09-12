@@ -4,43 +4,55 @@
 
 <body>
   <div class="container">
+
+    {{> loginButtons}}
+    {{#if currentUser}}
     <header>
-      <h1>Your Links! ({{incompleteCount}})</h1>
-
-      <label class="hide-completed">
-        <input type="checkbox" checked="{{hideCompleted}}" />
-        Hide Completed Tasks
-      </label>
-
-      {{> loginButtons}}
-
-      {{#if currentUser}}
-        <form class="new-task">
-          <input type="text" name="item_receiver" placeholder="Type to add username of receiver" />
-          <input type="text" name="item_title" placeholder="Type to add new title" />
-          <input type="text" name="item_link" placeholder="Type to add new link" />
-          <select name="item_type">
-            <option value="article">Article</option>
-            <option value="video">Video</option>
-            <option value="music">Music</option>
-            <option value="other">Other</option>
-          </select>
-          <select name="item_length">
-            <option value="short">Short</option>
-            <option value="medium">Medium</option>
-            <option value="long">Long</option>
-          </select>
-          <input type="text" name="item_tags" placeholder="Type tags separated by spaces" />
-          <button type="submit">Submit</button>
-        </form>
-      {{/if}}
+      <h1>My Bookmarks ({{incompleteCount}} new)</h1>
     </header>
 
-    <ul>
+    <!-- Add New Form -->
+    <button class="primary-button new-item-trigger">Add New Item +</button>
+    <form class="new-item-form">
+      <div class="close-form"><a>x</a></div>
+      <div class="entry"><label for="item_receiver">For: </label><input type="text" name="item_receiver" placeholder="" /></div>
+      <div class="entry"><label for="item_title">Title: </label><input type="text" name="item_title" placeholder="" /></div>
+      <div class="entry"><label for="item_link">Link: </label><input type="text" name="item_link" placeholder="" /></div>
+      <div class="entry">
+        <label for="item_type">Item Type: </label>
+        <select name="item_type">
+          <option value="article">Article</option>
+          <option value="video">Video</option>
+          <option value="music">Music</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="entry">
+        <label for="item_length">Item Length: </label>
+        <select name="item_length">
+          <option value="short">Short</option>
+          <option value="medium">Medium</option>
+          <option value="long">Long</option>
+        </select>
+      </div>
+      <div class="entry"><label for="item_tags">Tags: </label><input type="text" name="item_tags" placeholder="" /></div>
+      <div class="entry"><button class="primary-button" type="submit">Submit</button></div>
+    </form>
+
+
+    <!-- Filters -->
+    <label class="hide-completed">
+      <input type="checkbox" checked="{{hideCompleted}}" />
+      Hide Completed Items
+    </label>
+
+    <ul class="list-container">
       {{#each tasks}}
         {{> task}}
       {{/each}}
     </ul>
+    {{/if}}
+
   </div>
 </body>
 

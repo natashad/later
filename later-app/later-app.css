@@ -1,85 +1,40 @@
-/* CSS declarations go here */
-.hide body {
-  font-family: sans-serif;
-  background-color: #315481;
-  background-image: linear-gradient(to bottom, #315481, #918e82 100%);
-  background-attachment: fixed;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 0;
-  margin: 0;
-  font-size: 14px; }
-.hide .container {
-  max-width: 600px;
-  margin: 0 auto;
-  min-height: 100%;
-  background: white; }
-.hide header {
-  background: #d2edf4;
-  background-image: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%);
-  padding: 20px 15px 15px 15px;
-  position: relative; }
-.hide #login-buttons {
-  display: block; }
-.hide h1 {
-  font-size: 1.5em;
-  margin: 0;
-  margin-bottom: 10px;
-  display: inline-block;
-  margin-right: 1em; }
-.hide form {
-  margin-top: 10px;
-  margin-bottom: -10px;
-  position: relative; }
-.hide .new-task input {
-  box-sizing: border-box;
-  padding: 10px 0;
-  background: transparent;
-  border: none;
-  width: 100%;
-  padding-right: 80px;
-  font-size: 1em; }
-.hide .new-task input:focus {
-  outline: 0; }
-.hide ul {
-  margin: 0;
-  padding: 0;
-  background: white; }
-.hide .delete {
-  float: right;
-  font-weight: bold;
-  background: none;
-  font-size: 1em;
-  border: none;
-  position: relative; }
-.hide li {
-  position: relative;
-  list-style: none;
-  padding: 15px;
-  border-bottom: #eee solid 1px; }
-.hide li .text {
-  margin-left: 10px; }
-.hide li.checked {
-  color: #888; }
-.hide li.checked .text {
-  text-decoration: line-through; }
-.hide li.private {
-  background: #eee;
-  border-color: #ddd; }
-.hide header .hide-completed {
-  float: right; }
-.hide .toggle-private {
-  margin-left: 5px; }
-@media (max-width: 600px) {
-  .hide li {
-    padding: 12px 15px; }
-  .hide .search {
-    width: 150px;
-    clear: both; }
-  .hide .new-task input {
-    padding-bottom: 5px; } }
+body {
+  font-size: 16px;
+  font-family: sans-serif; }
+  body button.primary-button {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #285f8f;
+    border-radius: 5px;
+    background-color: #337ab7;
+    color: white;
+    font-size: 14px;
+    cursor: pointer; }
+  body form.new-item-form {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    background: white;
+    border: 1px solid #333;
+    border-radius: 5px;
+    width: 300px; }
+    body form.new-item-form .entry {
+      text-align: center;
+      display: block;
+      margin: 10px auto;
+      font-size: 16px; }
+      body form.new-item-form .entry input, body form.new-item-form .entry select {
+        font-size: 16px; }
+      body form.new-item-form .entry button {
+        font-size: 14px; }
+    body form.new-item-form div.close-form {
+      text-align: right;
+      padding: 5px 0px; }
+      body form.new-item-form div.close-form a {
+        border: 1px solid black;
+        background-color: #E3E3E3;
+        font-size: 16px;
+        padding: 5px 10px;
+        cursor: pointer; }
 
 /*# sourceMappingURL=later-app.css.map */
