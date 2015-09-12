@@ -15,9 +15,9 @@
     <button class="primary-button new-item-trigger">Add New Item +</button>
     <form class="new-item-form">
       <div class="close-form"><a>x</a></div>
-      <div class="entry"><label for="item_receiver">For: </label><input type="text" name="item_receiver" placeholder="" /></div>
+      <div class="entry"><label for="item_receiver">For *: </label><input type="text" name="item_receiver" placeholder="" /></div>
       <div class="entry"><label for="item_title">Title: </label><input type="text" name="item_title" placeholder="" /></div>
-      <div class="entry"><label for="item_link">Link: </label><input type="text" name="item_link" placeholder="" /></div>
+      <div class="entry"><label for="item_link">Link *: </label><input type="text" name="item_link" placeholder="" /></div>
       <div class="entry">
         <label for="item_type">Item Type: </label>
         <select name="item_type">
@@ -58,10 +58,24 @@
 
 <template name="task">
   <li class="{{#if checked}}checked{{/if}}">
-    <button class="delete">&times;</button>
 
-    <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
+    <div class="item-content">
+      <i class="fa {{getTypeFontAwesome}}"></i>
+        <a target="_blank" href="{{link}}" alt="{{#if title}}{{title}}{{else}}{{link}}{{/if}}">{{#if title}}{{title}}{{else}}{{link}}{{/if}}</a>
+      ({{length}})
+      <span class="creator {{#if creatorIsReceiver}}me{{/if}}">{{#if creatorIsReceiver}}Me{{else}}{{getCreator}}{{/if}}</span>
+      {{#if isIncoming}}
+        <span class="tag">Inbox</span>
+      {{else}}
+        <span class="tag">Outbox</span>
+      {{/if}}
+      <div class="controls">
+        {{#if isIncoming}}<label for="seen">Seen</label><input name="seen" type="checkbox" checked="{{checked}}" class="toggle-checked" />{{/if}}
+        <button class="delete">&times;</button>
+      </div>
+    </div>
 
-    <span class="text"><strong>{{getCreator}}</strong> - {{getReceiver}} ; {{title}} ; {{link}} ; {{type}} ; {{length}} ; {{tags}}</span>
+
+
   </li>
 </template>

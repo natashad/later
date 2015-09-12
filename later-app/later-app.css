@@ -1,4 +1,5 @@
 body {
+  background: #EEE;
   font-size: 16px;
   font-family: sans-serif; }
   body button.primary-button {
@@ -32,9 +33,41 @@ body {
       padding: 5px 0px; }
       body form.new-item-form div.close-form a {
         border: 1px solid black;
-        background-color: #E3E3E3;
+        background-color: #DDD;
         font-size: 16px;
         padding: 5px 10px;
         cursor: pointer; }
+  body ul.list-container {
+    list-style-type: none;
+    margin: 0;
+    padding: 0; }
+    body ul.list-container li {
+      margin: 0;
+      padding: 20px;
+      background: white;
+      border: 1px solid #DDD;
+      border-top: none; }
+      body ul.list-container li.checked {
+        opacity: 0.5; }
+      body ul.list-container li div.controls {
+        float: right; }
+      body ul.list-container li .creator {
+        margin: 0 10px;
+        padding: 5px;
+        background: #FFFF99;
+        border: 1px solid #DDD;
+        border-radius: 3px;
+        font-size: 14px; }
+        body ul.list-container li .creator.me {
+          background: #FF99FF; }
+      body ul.list-container li .tag {
+        margin: 0 10px;
+        padding: 3px;
+        background: #EEE;
+        border: 1px solid #DDD;
+        border-radius: 3px;
+        font-size: 14px; }
+    body ul.list-container li:first-child {
+      border-top: 1px solid #DDD; }
 
 /*# sourceMappingURL=later-app.css.map */

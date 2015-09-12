@@ -57,6 +57,9 @@ if (Meteor.isClient) {
       var receiver = event.target.item_receiver.value;
       var title = event.target.item_title.value;
       var link = event.target.item_link.value;
+      if (link.indexOf('http') !== 0) {
+        link = "http://" + link;
+      }
       var type = event.target.item_type.value;
       var length = event.target.item_length.value;
       var tags = event.target.item_tags.value;
@@ -75,12 +78,13 @@ if (Meteor.isClient) {
 
       // Clear form
       event.target.reset();
+      $('.new-item-form').hide();
     },
     "change .hide-completed input": function (event) {
       Session.set("hideCompleted", event.target.checked);
     },
     "click .new-item-trigger": function (event) {
-        $('.new-item-form').show();
+        $('.new-item-form').toggle();
     },
     "click .close-form a": function (event) {
       $('.new-item-form').hide();
@@ -99,6 +103,24 @@ if (Meteor.isClient) {
         receiverName.set(result);
       });
       return receiverName.get();
+    },
+    'getTypeFontAwesome': function () {
+      switch(this.type) {
+        case 'article':
+          return 'fa-file-text-o';
+        case 'video':
+          return 'fa-video-camera';
+        case 'music':
+          return 'fa-headphones';
+        case 'other':
+          return 'fa-external-link';
+      }
+    },
+    'creatorIsReceiver': function () {
+      return this.creator === Meteor.userId();
+    },
+    'isIncoming': function() {
+      return this.receiver == Meteor.userId();
     }
   });
 

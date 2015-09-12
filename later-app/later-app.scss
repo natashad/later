@@ -1,7 +1,11 @@
 $dark-gray: #333;
 $blue: #337ab7;
-$light-gray: #E3E3E3;
+$light-gray: #DDD;
+$lighter-gray: #EEE;
+$yellow: #FFFF99;
+$pink: #FF99FF;
 body {
+  background: $lighter-gray;
   font-size: 16px;
   font-family: sans-serif;
   button.primary-button {
@@ -44,6 +48,46 @@ body {
         padding: 5px 10px;
         cursor: pointer;
       }
+    }
+  }
+  ul.list-container {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    li {
+      &.checked {
+        opacity: 0.5;
+      }
+      margin: 0;
+      padding: 20px;
+      background: white;
+      border: 1px solid $light-gray;
+      border-top: none;
+      div.controls {
+        float: right;
+      }
+      .creator {
+        margin: 0 10px;
+        padding: 5px;
+        background: $yellow;
+        border: 1px solid $light-gray;
+        border-radius: 3px;
+        font-size: 14px;
+        &.me {
+          background: $pink;
+        }
+      }
+      .tag {
+        margin: 0 10px;
+        padding: 3px;
+        background: $lighter-gray;
+        border: 1px solid $light-gray;
+        border-radius: 3px;
+        font-size: 14px;
+      }
+    }
+    li:first-child {
+      border-top: 1px solid $light-gray;
     }
   }
 }
