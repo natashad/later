@@ -47,10 +47,14 @@ if (Meteor.isClient) {
     incompleteCount: function () {
       return Tasks.find({checked: {$ne: true}}).count();
     },
-    friends: function() {
+    // TODO: Switch to this when autocomplete works
+    friends_temp: function() {
       var case1 = Friends.find({user_name: Meteor.user().username}).map(function(f) {return f.friend_name});
       var case2 = Friends.find({friend_name: Meteor.user().username}).map(function(f) {return f.user_name});
       return case1.concat(case2);
+    }
+    friends: function() {
+      return ['leslie', 'natasha', 'nathan', 'chuck'];
     }
   });
 
