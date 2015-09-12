@@ -1,4 +1,5 @@
 Tasks = new Mongo.Collection("tasks");
+Friends = new Mongo.Collection("friends");
 
 if (Meteor.isServer) {
   // This code only runs on the server
@@ -29,6 +30,10 @@ if (Meteor.isServer) {
 if (Meteor.isClient) {
   // This code only runs on the client
   Meteor.subscribe("tasks");
+  //
+  // Template.body.friends = function () {
+  //   return ['natasha','nathan', 'leslie', 'chuck'];
+  // };
 
   Template.body.helpers({
     tasks: function () {
@@ -45,7 +50,14 @@ if (Meteor.isClient) {
     },
     incompleteCount: function () {
       return Tasks.find({checked: {$ne: true}}).count();
+    },
+    friends: function() {
+      return ['natasha','nathan', 'leslie', 'chuck'];
     }
+  });
+
+  Template.body.onRendered(function() {
+    Meteor.typeahead.inject('.typeahead');
   });
 
   Template.body.events({
@@ -132,6 +144,7 @@ if (Meteor.isClient) {
   Template.task.events({
     "click .toggle-checked": function () {
       // Set the checked property to the opposite of its current value
+      console.log("CHECKED");
       Meteor.call("setChecked", this._id, ! this.checked);
     },
     "click .delete": function () {
@@ -142,6 +155,7 @@ if (Meteor.isClient) {
   Accounts.ui.config({
     passwordSignupFields: "USERNAME_ONLY"
   });
+
 }
 
 Meteor.methods({
@@ -179,7 +193,7 @@ Meteor.methods({
   },
   setChecked: function (taskId, setChecked) {
     var task = Tasks.findOne(taskId);
-    if (task.creator !== Meteor.userId()) {
+    if (task.receiver !== Meteor.userId()) {
       // make sure only the creator can check it off
       throw new Meteor.Error("not-authorized");
     }

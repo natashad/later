@@ -15,7 +15,11 @@
     <button class="primary-button new-item-trigger">Add New Item +</button>
     <form class="new-item-form">
       <div class="close-form"><a>x</a></div>
-      <div class="entry"><label for="item_receiver">For *: </label><input type="text" name="item_receiver" placeholder="" /></div>
+      <div class="entry"><label for="item_receiver">For *: </label>
+        <input type="text" name="item_receiver" class="form-control typeahead" placeholder="Type to query"
+				   autocomplete="off" spellcheck="off"
+				   data-source="friends" />
+      </div>
       <div class="entry"><label for="item_title">Title: </label><input type="text" name="item_title" placeholder="" /></div>
       <div class="entry"><label for="item_link">Link *: </label><input type="text" name="item_link" placeholder="" /></div>
       <div class="entry">
@@ -75,7 +79,9 @@
       </div>
     </div>
 
-
-
   </li>
+</template>
+
+<template name="friend-typeahead">
+       <p class="friend-name">{{username}}</p>
 </template>

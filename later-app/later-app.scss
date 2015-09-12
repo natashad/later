@@ -3,7 +3,7 @@ $blue: #337ab7;
 $light-gray: #DDD;
 $lighter-gray: #EEE;
 $yellow: #FFFF99;
-$pink: #FF99FF;
+$purple: #CC99FF;
 body {
   background: $lighter-gray;
   font-size: 16px;
@@ -74,7 +74,7 @@ body {
         border-radius: 3px;
         font-size: 14px;
         &.me {
-          background: $pink;
+          background: $purple;
         }
       }
       .tag {
