@@ -164,7 +164,9 @@ Meteor.methods({
 
     var receiverID = getIDForUsername(item.receiver);
 
-    if (! receiverID) {
+    if (! receiverID && this.isSimulation) {
+      return
+    } else if (! receiverID) {
       throw new Meteor.Error("user " + item.receiver + " does not exist");
     }
 
