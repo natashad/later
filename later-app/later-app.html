@@ -15,11 +15,8 @@
     <button class="primary-button new-item-trigger">Add New Item +</button>
     {{> addItemForm}}
 
-    <!-- Filters -->
-    <label class="hide-completed">
-      <input type="checkbox" checked="{{hideCompleted}}" />
-      Hide Completed Items
-    </label>
+    {{> filters}}
+    
 
     <ul class="list-container">
       {{#each tasks}}
@@ -30,6 +27,16 @@
 
   </div>
 </body>
+
+<template name="filters">
+  <label class="hide-completed">
+    <input type="checkbox" checked="{{hideCompleted}}" />
+    Hide Completed Items
+  </label>
+  <label>
+    <button>Article</button>
+  </label>
+</template>
 
 <template name="task">
   <li class="{{#if checked}}checked{{/if}}">
