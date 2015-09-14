@@ -18,14 +18,31 @@ body {
     background: white;
     border: 1px solid #333;
     border-radius: 5px;
-    width: 300px; }
+    width: 320px; }
     body form.new-item-form .entry {
-      text-align: center;
-      display: block;
-      margin: 10px auto;
-      font-size: 16px; }
-      body form.new-item-form .entry input, body form.new-item-form .entry select {
-        font-size: 16px; }
+      margin: 10px; }
+      body form.new-item-form .entry label {
+        width: 60px; }
+      body form.new-item-form .entry input {
+        padding: 8px 12px;
+        line-height: 30px;
+        border: 2px solid #ccc;
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        border-radius: 8px;
+        outline: none;
+        height: 34px;
+        font-size: 14px;
+        background-color: #fff; }
+        body form.new-item-form .entry input:focus {
+          border: 2px solid #0097cf;
+          -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+          -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); }
+      body form.new-item-form .entry.submit {
+        text-align: center; }
+      body form.new-item-form .entry.error {
+        color: red; }
       body form.new-item-form .entry button {
         font-size: 14px; }
     body form.new-item-form div.close-form {

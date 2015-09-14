@@ -67,6 +67,7 @@ if (Meteor.isClient) {
     "submit .new-item-form": function (event) {
       // Prevent default browser form submit
       event.preventDefault();
+      $('.new-item-form .error').empty();
 
       // Get value from form element
       var receiver = event.target.item_receiver.value;
@@ -89,11 +90,17 @@ if (Meteor.isClient) {
 
 
       // Insert a task into the collection
-      Meteor.call("addTask", item);
+      Meteor.call("addTask", item, function(error, result) {
+        if (error) {
+          $('.new-item-form .error').html("Error: " + error.reason);
+          return;
+        } else {
+          // Clear form
+          event.target.reset();
+          $('.new-item-form').hide();
+        }
+      });
 
-      // Clear form
-      event.target.reset();
-      $('.new-item-form').hide();
     },
     "change .hide-completed input": function (event) {
       Session.set("hideCompleted", event.target.checked);
@@ -171,9 +178,9 @@ Meteor.methods({
     var receiverID = getIDForUsername(item.receiver);
 
     if (! receiverID && this.isSimulation) {
-      return
+      return;
     } else if (! receiverID) {
-      throw new Meteor.Error("user " + item.receiver + " does not exist");
+      throw new Meteor.Error("no-user", "User " + item.receiver + " does not exist");
     }
 
     Tasks.insert({
