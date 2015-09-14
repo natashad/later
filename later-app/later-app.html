@@ -17,7 +17,6 @@
 
     {{> filters}}
     
-
     <ul class="list-container">
       {{#each tasks}}
         {{> task}}
@@ -29,12 +28,20 @@
 </body>
 
 <template name="filters">
-  <label class="hide-completed">
-    <input type="checkbox" checked="{{hideCompleted}}" />
-    Hide Completed Items
+  <label class="hide-completed filter">
+    <input type="checkbox" checked="{{hideCompleted}}" />Hide Completed Items
   </label>
-  <label>
-    <button>Article</button>
+  <label class="article-filter filter">
+    <input type="checkbox" checked="{{articleFilter}}" />Article
+  </label>
+  <label class="video-filter filter">
+    <input type="checkbox" checked="{{videoFilter}}" />Video
+  </label>
+  <label class="music-filter filter">
+    <input type="checkbox" checked="{{musicFilter}}" />Music
+  </label>
+  <label class="other-filter filter">
+    <input type="checkbox" checked="{{otherFilter}}" />Other
   </label>
 </template>
 

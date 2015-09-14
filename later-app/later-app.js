@@ -49,6 +49,18 @@ if (Meteor.isClient) {
     hideCompleted: function () {
       return Session.get("hideCompleted");
     },
+    articleFilter: function () {
+      return Session.get("articleFilter");
+    },
+    videoFilter: function () {
+      return Session.get("videoFilter");
+    },
+    musicFilter: function () {
+      return Session.get("musicFilter");
+    },
+    otherFilter: function () {
+      return Session.get("otherFilter");
+    },
     incompleteCount: function () {
       return Tasks.find({checked: {$ne: true}}).count();
     },
@@ -113,6 +125,18 @@ if (Meteor.isClient) {
   Template.filters.events({
     "change .hide-completed input": function (event) {
       Session.set("hideCompleted", event.target.checked);
+    },
+     "change .article-filter input": function (event) {
+      Session.set("articleFilter", event.target.checked);
+    },
+     "change .video-filter input": function (event) {
+      Session.set("videoFilter", event.target.checked);
+    },
+     "change .music-filter input": function (event) {
+      Session.set("musicFilter", event.target.checked);
+    },
+     "change .other-filter input": function (event) {
+      Session.set("otherFilter", event.target.checked);
     }
   });
 
