@@ -146,7 +146,7 @@ if (Meteor.isClient) {
     }
   });
 
-  Template.body.created = function () {
+  Template.task.created = function () {
     creatorName = new ReactiveVar();
     receiverName = new ReactiveVar();
   };
