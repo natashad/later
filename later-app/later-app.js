@@ -77,8 +77,6 @@ if (Meteor.isClient) {
         return Tasks.find({$or: exprs}, {sort: {createdAt: -1}});
       else
         return Tasks.find({}, {sort: {createdAt: -1}});
-
-
     },
     hideCompleted: function () {
       return Session.get("hideCompleted");
@@ -186,7 +184,6 @@ if (Meteor.isClient) {
     }
   });
 
-  //TODO: natasha
   Template.notification.helpers({
     'getFriendName': function() {
       var f = Friends.findOne({'user_id' : this.friend_id});
