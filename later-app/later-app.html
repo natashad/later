@@ -16,7 +16,13 @@
     {{> addItemForm}}
 
     {{> filters}}
-    
+
+    <ul class="notifications-container">
+      {{#each notifications}}
+        {{> notification}}
+      {{/each}}
+    </ul>
+
     <ul class="list-container">
       {{#each tasks}}
         {{> task}}
@@ -74,6 +80,11 @@
   </li>
 </template>
 
+<template name="notification">
+  <li>
+    {{getFriendName}} wants to connect with you.
+  </li>
+</template>
 
 <template name="addItemForm">
   <form class="new-item-form">

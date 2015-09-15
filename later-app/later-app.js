@@ -1,5 +1,8 @@
 Tasks = new Mongo.Collection("tasks");
 Friends = new Mongo.Collection("friends");
+Notifications = new Mongo.Collection("notifications");
+
+var NEW_FRIEND_NOTIFICATION = "new_friend";
 
 if (Meteor.isServer) {
   // This code only runs on the server
@@ -12,6 +15,11 @@ if (Meteor.isServer) {
   Meteor.publish("friends", function() {
     return Friends.find(
       { $or : [ {user_id: this.userId}, {friend_id: this.userId}]}
+    );
+  });
+  Meteor.publish("notifications", function() {
+    return Notifications.find(
+      {user_id: this.userId}
     );
   });
 
@@ -36,7 +44,11 @@ if (Meteor.isClient) {
   // This code only runs on the client
   Meteor.subscribe("tasks");
   Meteor.subscribe("friends");
+  Meteor.subscribe("notifications");
   Template.body.helpers({
+    notifications: function () {
+      return Notifications.find();
+    },
     tasks: function () {
       var exprs = [];
 
@@ -66,7 +78,7 @@ if (Meteor.isClient) {
       else
         return Tasks.find({}, {sort: {createdAt: -1}});
 
-      
+
     },
     hideCompleted: function () {
       return Session.get("hideCompleted");
@@ -174,6 +186,14 @@ if (Meteor.isClient) {
     }
   });
 
+  //TODO: natasha
+  Template.notification.helpers({
+    'getFriendName': function() {
+      var f = Friends.findOne({'user_id' : this.friend_id});
+      return f.friend_name;
+    }
+  });
+
   Template.task.helpers({
     'getCreator': function () {
       var f = Friends.findOne({'friend_id' : this.receiver});
@@ -254,7 +274,12 @@ Meteor.methods({
         user_id: Meteor.userId(),
         friend_name: item.receiver,
         friend_id: receiverID
-      })
+      });
+      Notifications.insert({
+        user_id: receiverID,
+        friend_id: Meteor.userId(),
+        type: NEW_FRIEND_NOTIFICATION
+      });
     }
 
   },
