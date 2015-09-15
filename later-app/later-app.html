@@ -19,7 +19,7 @@
 
     <ul class="notifications-container">
       {{#each notifications}}
-        {{> notification}}
+        {{> manageFriendship}}
       {{/each}}
     </ul>
 
@@ -80,7 +80,7 @@
   </li>
 </template>
 
-<template name="notification">
+<template name="manageFriendship">
   <li>
     {{getFriendName}} wants to connect with you.
     <button class="approve">Approve</button>

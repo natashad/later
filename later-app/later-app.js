@@ -192,14 +192,14 @@ if (Meteor.isClient) {
     }
   });
 
-  Template.notification.helpers({
+  Template.manageFriendship.helpers({
     'getFriendName': function() {
       var f = Friends.findOne({'user_id' : this.friend_id});
       return f.user_name;
     }
   });
 
-  Template.notification.events({
+  Template.manageFriendship.events({
       "click .approve": function () {
         // Set the checked property to the opposite of its current value
         Meteor.call("setApproved", this.user_id, this.friend_id, true);
