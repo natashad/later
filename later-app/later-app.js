@@ -19,7 +19,7 @@ if (Meteor.isServer) {
   });
   Meteor.publish("notifications", function() {
     return Notifications.find(
-      {user_id: this.userId}
+      { user_id: this.userId, friend_id : { $ne : this.userId }}
     );
   });
 
@@ -37,6 +37,13 @@ if (Meteor.isServer) {
     });
 
     return user? user._id : undefined;
+  }
+
+  function get_approved_friends() {
+    var approved = Friends.find({approved: true})
+        .map(function(f) { return f.user_id });
+    approved.push(Meteor.userId());
+    return approved;
   }
 }
 
@@ -73,10 +80,11 @@ if (Meteor.isClient) {
       if (Session.get("hideCompleted"))
         exprs.push({checked: {$ne: true}});
 
+      var approved_friends = get_approved_friends();
       if (exprs.length > 0)
         return Tasks.find({$or: exprs}, {sort: {createdAt: -1}});
       else
-        return Tasks.find({}, {sort: {createdAt: -1}});
+        return Tasks.find({creator: {$in: approved_friends}}, {sort: {createdAt: -1}});
     },
     hideCompleted: function () {
       return Session.get("hideCompleted");
@@ -187,14 +195,24 @@ if (Meteor.isClient) {
   Template.notification.helpers({
     'getFriendName': function() {
       var f = Friends.findOne({'user_id' : this.friend_id});
-      return f.friend_name;
+      return f.user_name;
     }
   });
 
+  Template.notification.events({
+      "click .approve": function () {
+        // Set the checked property to the opposite of its current value
+        Meteor.call("setApproved", this.user_id, this.friend_id, true);
+      },
+      "click .block": function () {
+        Meteor.call("setApproved", this.user_id, this.friend_id, false);
+      }
+    });
+
   Template.task.helpers({
     'getCreator': function () {
-      var f = Friends.findOne({'friend_id' : this.receiver});
-      return f ? f.friend_name : '';
+      var f = Friends.findOne({'user_id' : this.creator});
+      return f ? f.user_name : '';
 
     },
     'getReceiver': function () {
@@ -297,6 +315,11 @@ Meteor.methods({
     }
 
     Tasks.update(taskId, { $set: { checked: setChecked} });
+  },
+  setApproved: function (userId, friendId, setApproved) {
+    var friendship = Friends.update({user_id : friendId, friend_id : userId},
+      {$set: { approved: setApproved }});
+    var notification = Notifications.remove({user_id : userId, friend_id: friendId});
   },
   getUsername: function (id) {
     return getUsernameForID(id);
