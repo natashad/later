@@ -11,7 +11,7 @@ if (Meteor.isServer) {
   });
   Meteor.publish("friends", function() {
     return Friends.find(
-      { $or : [ {user_name: getUsernameForID(this.userId)}, {friend_name: getUsernameForID(this.userId)}]}
+      { $or : [ {user_id: this.userId}, {friend_id: this.userId}]}
     );
   });
 
@@ -176,16 +176,14 @@ if (Meteor.isClient) {
 
   Template.task.helpers({
     'getCreator': function () {
-      Meteor.call('getUsername', this.creator, function (error, result) {
-        creatorName.set(result);
-      });
-      return creatorName.get();
+      var f = Friends.findOne({'friend_id' : this.receiver});
+      return f ? f.friend_name : '';
+
     },
     'getReceiver': function () {
-      Meteor.call('getUsername', this.receiver, function (error, result) {
-        receiverName.set(result);
-      });
-      return receiverName.get();
+      var f = Friends.findOne({'friend_id' : this.receiver});
+      return f ? f.friend_name : '';
+
     },
     'getTypeFontAwesome': function () {
       switch(this.type) {
@@ -206,11 +204,6 @@ if (Meteor.isClient) {
       return this.receiver == Meteor.userId();
     }
   });
-
-  Template.task.created = function () {
-    creatorName = new ReactiveVar();
-    receiverName = new ReactiveVar();
-  };
 
   Template.task.events({
     "click .toggle-checked": function () {
@@ -258,7 +251,9 @@ Meteor.methods({
     if (!Friends.findOne({user_name: Meteor.user().username, friend_name: item.receiver})) {
       Friends.insert({
         user_name: Meteor.user().username,
-        friend_name: item.receiver
+        user_id: Meteor.userId(),
+        friend_name: item.receiver,
+        friend_id: receiverID
       })
     }
 
