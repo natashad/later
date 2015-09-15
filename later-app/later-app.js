@@ -65,8 +65,6 @@ if (Meteor.isClient) {
         return Tasks.find({$or: exprs}, {sort: {createdAt: -1}});
       else
         return Tasks.find({}, {sort: {createdAt: -1}});
-
-      
     },
     hideCompleted: function () {
       return Session.get("hideCompleted");
