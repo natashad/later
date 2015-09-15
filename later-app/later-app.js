@@ -38,13 +38,35 @@ if (Meteor.isClient) {
   Meteor.subscribe("friends");
   Template.body.helpers({
     tasks: function () {
-      if (Session.get("hideCompleted")) {
-        // If hide completed is checked, filter tasks
-        return Tasks.find({checked: {$ne: true}}, {sort: {createdAt: -1}});
-      } else {
-        // Otherwise, return all of the tasks
+      var exprs = [];
+
+      if (Session.get("articleFilter"))
+        exprs.push({type: {$in: ["article"]}});
+
+      if (Session.get("videoFilter"))
+        exprs.push({type: {$in: ["video"]}});
+
+      if (Session.get("musicFilter"))
+        exprs.push({type: {$in: ["music"]}});
+
+      if (Session.get("otherFilter"))
+        exprs.push({type: {$in: ["other"]}});
+
+      if (Session.get("inboxFilter"))
+        exprs.push({receiver: {$in: [Meteor.userId()]}});
+
+      if (Session.get("outboxFilter"))
+        exprs.push({receiver: {$ne: Meteor.userId()}});
+
+      if (Session.get("hideCompleted"))
+        exprs.push({checked: {$ne: true}});
+
+      if (exprs.length > 0)
+        return Tasks.find({$or: exprs}, {sort: {createdAt: -1}});
+      else
         return Tasks.find({}, {sort: {createdAt: -1}});
-      }
+
+      
     },
     hideCompleted: function () {
       return Session.get("hideCompleted");
@@ -60,6 +82,12 @@ if (Meteor.isClient) {
     },
     otherFilter: function () {
       return Session.get("otherFilter");
+    },
+    inboxFilter: function () {
+      return Session.get("inboxFilter");
+    },
+    outboxFilter: function () {
+      return Session.get("outboxFilter");
     },
     incompleteCount: function () {
       return Tasks.find({checked: {$ne: true}}).count();
@@ -137,6 +165,12 @@ if (Meteor.isClient) {
     },
      "change .other-filter input": function (event) {
       Session.set("otherFilter", event.target.checked);
+    },
+    "change .inbox-filter input": function (event) {
+      Session.set("inboxFilter", event.target.checked);
+    },
+    "change .outbox-filter input": function (event) {
+      Session.set("outboxFilter", event.target.checked);
     }
   });
 
