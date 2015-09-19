@@ -57,34 +57,48 @@ if (Meteor.isClient) {
       return Notifications.find();
     },
     tasks: function () {
-      var exprs = [];
+      var filters = [];
 
-      if (Session.get("articleFilter"))
-        exprs.push({type: {$in: ["article"]}});
+      {
+        //TYPE FILTER
+        var type_filter = [];
+        if (Session.get("articleFilter"))
+          type_filter.push({type: {$in: ["article"]}});
 
-      if (Session.get("videoFilter"))
-        exprs.push({type: {$in: ["video"]}});
+        if (Session.get("videoFilter"))
+          type_filter.push({type: {$in: ["video"]}});
 
-      if (Session.get("musicFilter"))
-        exprs.push({type: {$in: ["music"]}});
+        if (Session.get("musicFilter"))
+          type_filter.push({type: {$in: ["music"]}});
 
-      if (Session.get("otherFilter"))
-        exprs.push({type: {$in: ["other"]}});
+        if (Session.get("otherFilter"))
+          type_filter.push({type: {$in: ["other"]}});
 
-      if (Session.get("inboxFilter"))
-        exprs.push({receiver: {$in: [Meteor.userId()]}});
+        if(type_filter.length > 0)
+          filters.push({$or: type_filter});
+      }
 
-      if (Session.get("outboxFilter"))
-        exprs.push({receiver: {$ne: Meteor.userId()}});
+      {
+        // INBOX/OUTBOX FILTER
+        var session_filter = [];
+        if (Session.get("inboxFilter"))
+          session_filter.push({receiver: {$in: [Meteor.userId()]}});
 
+        if (Session.get("outboxFilter"))
+          session_filter.push({receiver: {$ne: Meteor.userId()}});
+
+        if (session_filter.length > 0)
+          filters.push({$or: session_filter})
+      }
+
+      // COMPLETED FILTER
       if (Session.get("hideCompleted"))
-        exprs.push({checked: {$ne: true}});
+        filters.push({checked: {$ne: true}});
 
-      var approved_friends = get_approved_friends();
-      if (exprs.length > 0)
-        return Tasks.find({$or: exprs}, {sort: {createdAt: -1}});
-      else
-        return Tasks.find({creator: {$in: approved_friends}}, {sort: {createdAt: -1}});
+      // APPROVED FRIENDS
+      filters.push({creator: {$in: get_approved_friends()}});
+
+      return Tasks.find({$and: filters}, {sort: {createdAt: -1}});
     },
     hideCompleted: function () {
       return Session.get("hideCompleted");
