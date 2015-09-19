@@ -30,6 +30,12 @@
     </ul>
     {{/if}}
 
+    <ul class="manage-blocked-container">
+      {{#each blockedFriends}}
+        {{> manageBlocked}}
+      {{/each}}
+    </ul>
+
   </div>
 </body>
 
@@ -85,6 +91,12 @@
     {{getFriendName}} wants to connect with you.
     <button class="approve">Approve</button>
     <button class="block">Block</button>
+  </li>
+</template>
+
+<template name="manageBlocked">
+  <li>
+    {{getFriendName}} <button class="approve">Approve</button>
   </li>
 </template>
 

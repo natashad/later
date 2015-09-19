@@ -114,6 +114,9 @@ if (Meteor.isClient) {
       var case1 = Friends.find().map(function(f) {return [f.friend_name, f.user_name]});
       return $.unique([].concat.apply([], case1));
     },
+    blockedFriends: function() {
+      return Friends.find({approved: false, friend_id: Meteor.userId()});
+    }
   });
 
   Template.addItemForm.onRendered(function() {
@@ -192,22 +195,39 @@ if (Meteor.isClient) {
     }
   });
 
+  function getFriendNameFromId(friend_id) {
+    var f = Friends.findOne({'user_id' : friend_id});
+    return f.user_name;
+  };
+
   Template.manageFriendship.helpers({
     'getFriendName': function() {
-      var f = Friends.findOne({'user_id' : this.friend_id});
-      return f.user_name;
+      return getFriendNameFromId(this.friend_id);
     }
   });
 
+  Template.manageBlocked.helpers({
+    'getFriendName': function() {
+      return getFriendNameFromId(this.user_id);
+    }
+  });
+
+  Template.manageBlocked.events({
+    "click .approve": function () {
+      // Set the checked property to the opposite of its current value
+      Meteor.call("setApproved", this.friend_id, this.user_id, true);
+    },
+  });
+
   Template.manageFriendship.events({
-      "click .approve": function () {
-        // Set the checked property to the opposite of its current value
-        Meteor.call("setApproved", this.user_id, this.friend_id, true);
-      },
-      "click .block": function () {
-        Meteor.call("setApproved", this.user_id, this.friend_id, false);
-      }
-    });
+    "click .approve": function () {
+      // Set the checked property to the opposite of its current value
+      Meteor.call("setApproved", this.user_id, this.friend_id, true);
+    },
+    "click .block": function () {
+      Meteor.call("setApproved", this.user_id, this.friend_id, false);
+    }
+  });
 
   Template.task.helpers({
     'getCreator': function () {
@@ -316,10 +336,10 @@ Meteor.methods({
 
     Tasks.update(taskId, { $set: { checked: setChecked} });
   },
-  setApproved: function (userId, friendId, setApproved) {
-    var friendship = Friends.update({user_id : friendId, friend_id : userId},
+  setApproved: function (currentUser, friendId, setApproved) {
+    var friendship = Friends.update({user_id : friendId, friend_id : currentUser},
       {$set: { approved: setApproved }});
-    var notification = Notifications.remove({user_id : userId, friend_id: friendId});
+    var notification = Notifications.remove({user_id : currentUser, friend_id: friendId});
   },
   getUsername: function (id) {
     return getUsernameForID(id);
