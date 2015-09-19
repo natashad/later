@@ -229,11 +229,15 @@ if (Meteor.isClient) {
   Template.manageBlocked.events({
     "click .approve": function () {
       // Set the checked property to the opposite of its current value
+      // This is acting on the Friends collection, so the current user is
+      // actually the this.friend_id in the Friends collection
       Meteor.call("setApproved", this.friend_id, this.user_id, true);
     },
   });
 
   Template.manageFriendship.events({
+    // These are acting on the Notifications collection, so we are approving
+    // the current user is this.user_id
     "click .approve": function () {
       // Set the checked property to the opposite of its current value
       Meteor.call("setApproved", this.user_id, this.friend_id, true);
