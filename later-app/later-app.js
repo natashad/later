@@ -52,6 +52,12 @@ if (Meteor.isClient) {
   Meteor.subscribe("tasks");
   Meteor.subscribe("friends");
   Meteor.subscribe("notifications");
+
+  function friends() {
+      var case1 = Friends.find().map(function(f) {return [f.friend_name, f.user_name]});
+      return $.unique([].concat.apply([], case1));
+  }
+
   Template.body.helpers({
     notifications: function () {
       return Notifications.find();
@@ -125,8 +131,7 @@ if (Meteor.isClient) {
       return Tasks.find({checked: {$ne: true}}).count();
     },
     friends: function() {
-      var case1 = Friends.find().map(function(f) {return [f.friend_name, f.user_name]});
-      return $.unique([].concat.apply([], case1));
+      return friends();
     },
     blockedFriends: function() {
       return Friends.find({approved: false, friend_id: Meteor.userId()});
@@ -184,6 +189,28 @@ if (Meteor.isClient) {
       $('.new-item-form').hide();
     }
   });
+
+  Template.filters.helpers({
+    friends: function() {
+      return friends();
+    }
+  });
+
+  Template.nameFilter.helpers({
+    getName: function() {
+      return this;
+    },
+    getChecked: function() {
+      //TODO return whether name is set in session
+      return true;
+    }
+  });
+
+  Template.nameFilter.events({
+    "change .name-filter input": function (event) {
+      //TODO set session variable from name
+    }
+  })
 
   Template.filters.events({
     "change .hide-completed input": function (event) {
