@@ -31,12 +31,21 @@ if (Meteor.isServer) {
     return user? user.username : undefined;
   }
 
-  function getIDForUsername(user) {
+  function getIDForUsername(uname) {
     var user =  Meteor.users.findOne({
-      username: user
+      username: uname
     });
-
-    return user? user._id : undefined;
+    if (!user) {
+      var uid = undefined;
+      var f = Friends.findOne({'friend_name': uname});
+      if (f) {
+        uid = f.friend_id
+      } else {
+        f = Friends.findOne({'user_name': uname});
+        if(f) uid = f.user_id;
+      }
+    }
+    return user? user._id : uid;
   }
 
   function get_approved_friends() {
@@ -95,6 +104,21 @@ if (Meteor.isClient) {
 
         if (session_filter.length > 0)
           filters.push({$or: session_filter})
+      }
+
+      // NAME FILTER
+      {
+        var name_filter = [];
+        var friendlist = friends();
+        var selectedFriends = [];
+        for (var x in friendlist) {
+          var sessionVar = friendlist[x] + "_filter";
+          if (Session.get(sessionVar)) {
+            selectedFriends.push(getIDForUsername(friendlist[x]));
+          }
+        }
+        filters.push({$or: [{creator: {$in: selectedFriends}}, {receiver: {$in: selectedFriends}}]});
+
       }
 
       // COMPLETED FILTER
@@ -200,15 +224,16 @@ if (Meteor.isClient) {
     getName: function() {
       return this;
     },
-    getChecked: function() {
-      //TODO return whether name is set in session
-      return true;
+    isChecked: function() {
+      var sessionVar = this + "_filter";
+      return Session.get(sessionVar);
     }
   });
 
   Template.nameFilter.events({
     "change .name-filter input": function (event) {
-      //TODO set session variable from name
+      var sessionVar = $(event.target).data('uname') + "_filter";
+      Session.set(sessionVar, event.target.checked);
     }
   })
 
