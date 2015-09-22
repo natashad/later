@@ -4,7 +4,37 @@ $light-gray: #DDD;
 $lighter-gray: #EEE;
 $yellow: #FFFF99;
 $purple: #CC99FF;
+$green: #00CC00;
 body {
+  .top-bar {
+    width: 100%;
+    background: black;
+    padding: 10px 40px;
+    a:hover {
+      cursor: pointer;
+    }
+    a.login-link-text {
+      color: white;
+      text-decoration: none;
+    }
+    #login-buttons {
+      display: block;
+      text-align: right;
+
+      #login-dropdown-list {
+        position: absolute;
+        background: white;
+        top: 30px;
+        right: 40px;
+        padding: 20px;
+        // .login-close-text, .login-close-text-clear {
+        //   display: none;
+        // }
+      }
+    }
+
+  }
+
   background: $lighter-gray;
   font-size: 16px;
   font-family: sans-serif;
@@ -61,6 +91,7 @@ body {
       button {
         font-size: 14px;
       }
+
     }
     div.close-form {
       text-align: right;
@@ -89,6 +120,21 @@ body {
       border-top: none;
       div.controls {
         float: right;
+        display: none;
+      }
+      &:hover div.controls {
+        display: block;
+        button {
+          background: inherit;
+          border: none;
+          i {
+            font-size: 20px;
+            color: lighten($dark-gray, 20%);
+            &:hover {
+              color: $dark-gray;
+            }
+          }
+        }
       }
       .creator {
         margin: 0 10px;
@@ -113,5 +159,29 @@ body {
     li:first-child {
       border-top: 1px solid $light-gray;
     }
+  }
+
+  .right-container {
+    width: 30%;
+    float: right;
+    padding: 0px 10px;
+    button.name-filter {
+      display: block;
+      width: 100%;
+      margin: 10px;
+      background-color: $light-gray;
+      border: 1px solid darken($light-gray, 10%);
+      color: $dark-gray;
+      padding: 10px;
+      &[data-checked="true"] {
+        background-color: $green;
+        border: 1px solid darken($green, 10%);
+      }
+    }
+  }
+
+  .left-container {
+    width: 70%;
+    float: left;
   }
 }

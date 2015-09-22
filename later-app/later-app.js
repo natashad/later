@@ -211,7 +211,7 @@ if (Meteor.isClient) {
     },
     "click .close-form a": function (event) {
       $('.new-item-form').hide();
-    }
+    },
   });
 
   Template.filters.helpers({
@@ -231,9 +231,10 @@ if (Meteor.isClient) {
   });
 
   Template.nameFilter.events({
-    "change .name-filter input": function (event) {
+    "click .name-filter": function (event) {
       var sessionVar = $(event.target).data('uname') + "_filter";
-      Session.set(sessionVar, event.target.checked);
+      $(event.target).data('checked',!$(event.target).data('checked'));
+      Session.set(sessionVar, $(event.target).data('checked'));
     }
   })
 
@@ -346,6 +347,7 @@ if (Meteor.isClient) {
 
 // End of Client only code
 }
+
 
 Meteor.methods({
   addTask: function (item) {

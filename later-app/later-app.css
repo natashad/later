@@ -2,6 +2,24 @@ body {
   background: #EEE;
   font-size: 16px;
   font-family: sans-serif; }
+  body .top-bar {
+    width: 100%;
+    background: black;
+    padding: 10px 40px; }
+    body .top-bar a:hover {
+      cursor: pointer; }
+    body .top-bar a.login-link-text {
+      color: white;
+      text-decoration: none; }
+    body .top-bar #login-buttons {
+      display: block;
+      text-align: right; }
+      body .top-bar #login-buttons #login-dropdown-list {
+        position: absolute;
+        background: white;
+        top: 30px;
+        right: 40px;
+        padding: 20px; }
   body button.primary-button {
     margin: 10px 0;
     padding: 10px;
@@ -67,7 +85,18 @@ body {
       body ul.list-container li.checked {
         opacity: 0.5; }
       body ul.list-container li div.controls {
-        float: right; }
+        float: right;
+        display: none; }
+      body ul.list-container li:hover div.controls {
+        display: block; }
+        body ul.list-container li:hover div.controls button {
+          background: inherit;
+          border: none; }
+          body ul.list-container li:hover div.controls button i {
+            font-size: 20px;
+            color: #666666; }
+            body ul.list-container li:hover div.controls button i:hover {
+              color: #333; }
       body ul.list-container li .creator {
         margin: 0 10px;
         padding: 5px;
@@ -86,5 +115,23 @@ body {
         font-size: 14px; }
     body ul.list-container li:first-child {
       border-top: 1px solid #DDD; }
+  body .right-container {
+    width: 30%;
+    float: right;
+    padding: 0px 10px; }
+    body .right-container button.name-filter {
+      display: block;
+      width: 100%;
+      margin: 10px;
+      background-color: #DDD;
+      border: 1px solid #c4c4c4;
+      color: #333;
+      padding: 10px; }
+      body .right-container button.name-filter[data-checked="true"] {
+        background-color: #00CC00;
+        border: 1px solid #009900; }
+  body .left-container {
+    width: 70%;
+    float: left; }
 
 /*# sourceMappingURL=later-app.css.map */

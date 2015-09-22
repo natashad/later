@@ -3,9 +3,13 @@
 </head>
 
 <body>
+
+  <div class="top-bar">
+  {{> loginButtons}}
+  </div>
+
   <div class="container">
 
-    {{> loginButtons}}
     {{#if currentUser}}
     <header>
       <h1>My Bookmarks ({{incompleteCount}} new)</h1>
@@ -23,19 +27,26 @@
       {{/each}}
     </ul>
 
-    <ul class="list-container">
-      {{#each tasks}}
-        {{> task}}
+    <div class="left-container">
+      <ul class="list-container">
+        {{#each tasks}}
+          {{> task}}
+        {{/each}}
+      </ul>
+    </div>
+
+    <div class="right-container">
+      {{#each friends}}
+        {{> nameFilter}}
       {{/each}}
-    </ul>
-    {{/if}}
+    </div>
 
     <ul class="manage-blocked-container">
       {{#each blockedFriends}}
         {{> manageBlocked}}
       {{/each}}
     </ul>
-
+    {{/if}}
   </div>
 </body>
 
@@ -61,15 +72,10 @@
   <label class="outbox-filter filter">
     <input type="checkbox" checked="{{outboxFilter}}" />Outbox
   </label>
-  {{#each friends}}
-    {{> nameFilter}}
-  {{/each}}
 </template>
 
 <template name="nameFilter">
-  <label class="name-filter filter">
-    <input type="checkbox" checked="{{isChecked}}" data-uname="{{getName}}" />{{getName}}
-  </label>
+  <button class="name-filter" data-checked="{{isChecked}}" data-uname="{{getName}}">{{getName}}</button>
 </template>
 
 <template name="task">
@@ -87,8 +93,8 @@
         <span class="tag">Outbox</span>
       {{/if}}
       <div class="controls">
-        {{#if isIncoming}}<label for="seen">Seen</label><input name="seen" type="checkbox" checked="{{checked}}" class="toggle-checked" />{{/if}}
-        <button class="delete">&times;</button>
+        {{#if isIncoming}}<button class="toggle-checked" alt="seen" data-checked="true"><i class="fa-check fa"></i></button>{{/if}}
+        <button class="delete"><i class="fa fa-times"></i></button>
       </div>
     </div>
 
