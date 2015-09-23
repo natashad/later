@@ -71,6 +71,43 @@ if (Meteor.isClient) {
     notifications: function () {
       return Notifications.find();
     },
+    hideCompleted: function () {
+      return Session.get("hideCompleted");
+    },
+    articleFilter: function () {
+      return Session.get("articleFilter");
+    },
+    videoFilter: function () {
+      return Session.get("videoFilter");
+    },
+    musicFilter: function () {
+      return Session.get("musicFilter");
+    },
+    otherFilter: function () {
+      return Session.get("otherFilter");
+    },
+    inboxFilter: function () {
+      return Session.get("inboxFilter");
+    },
+    outboxFilter: function () {
+      return Session.get("outboxFilter");
+    },
+    incompleteCount: function () {
+      return Tasks.find({checked: {$ne: true}}).count();
+    },
+    friends: function() {
+      return friends();
+    },
+    blockedFriends: function() {
+      return Friends.find({approved: false, friend_id: Meteor.userId()});
+    }
+  });
+
+  Template.taskList.lastUpdate = function () {
+    return Session.get('lastUpdateTasks');
+  };
+
+  Template.taskList.helpers({
     tasks: function () {
       var filters = [];
 
@@ -118,7 +155,19 @@ if (Meteor.isClient) {
           }
         }
         filters.push({$or: [{creator: {$in: selectedFriends}}, {receiver: {$in: selectedFriends}}]});
+      }
 
+      // SEARCH FILTER
+      {
+        var search_term = $('.search-bar').val();
+
+        // HACKY - changing this causes it to rerender
+        // we change this on keyup in searchbar
+        Session.get("forceUpdateTasks");
+
+        if(search_term) {
+          filters.push({"title" : {$regex : ".*"+search_term+".*"}});
+        }
       }
 
       // COMPLETED FILTER
@@ -129,38 +178,8 @@ if (Meteor.isClient) {
       filters.push({creator: {$in: get_approved_friends()}});
 
       return Tasks.find({$and: filters}, {sort: {createdAt: -1}});
-    },
-    hideCompleted: function () {
-      return Session.get("hideCompleted");
-    },
-    articleFilter: function () {
-      return Session.get("articleFilter");
-    },
-    videoFilter: function () {
-      return Session.get("videoFilter");
-    },
-    musicFilter: function () {
-      return Session.get("musicFilter");
-    },
-    otherFilter: function () {
-      return Session.get("otherFilter");
-    },
-    inboxFilter: function () {
-      return Session.get("inboxFilter");
-    },
-    outboxFilter: function () {
-      return Session.get("outboxFilter");
-    },
-    incompleteCount: function () {
-      return Tasks.find({checked: {$ne: true}}).count();
-    },
-    friends: function() {
-      return friends();
-    },
-    blockedFriends: function() {
-      return Friends.find({approved: false, friend_id: Meteor.userId()});
     }
-  });
+  })
 
   Template.addItemForm.onRendered(function() {
     Meteor.typeahead.inject();
@@ -207,11 +226,14 @@ if (Meteor.isClient) {
 
     },
     "click .new-item-trigger": function (event) {
-        $('.new-item-form').toggle();
+      $('.new-item-form').toggle();
     },
     "click .close-form a": function (event) {
       $('.new-item-form').hide();
     },
+    "keyup .search-bar": function (event) {
+      Session.set("forceUpdateTasks", new Date());
+    }
   });
 
   Template.filters.helpers({
