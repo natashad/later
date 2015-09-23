@@ -220,6 +220,18 @@ if (Meteor.isClient) {
     }
   });
 
+  Template.filters.rendered = function() {
+    if(!this._rendered) {
+      this._rendered = true;
+      $(".hide-completed input")[0].click();
+      $(".article-filter input")[0].click();
+      $(".video-filter input")[0].click();
+      $(".music-filter input")[0].click();
+      $(".other-filter input")[0].click();
+      $(".inbox-filter input")[0].click();
+    }
+  }
+
   Template.nameFilter.helpers({
     getName: function() {
       return this;
@@ -229,6 +241,13 @@ if (Meteor.isClient) {
       return Session.get(sessionVar);
     }
   });
+
+  Template.nameFilter.rendered = function() {
+    if(!this._rendered) {
+      this._rendered = true;
+      $(".name-filter[data-uname='" + this.data + "']").trigger('click');
+    }
+  }
 
   Template.nameFilter.events({
     "click .name-filter": function (event) {
