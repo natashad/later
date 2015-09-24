@@ -11,4 +11,4 @@ reactive-var
 fortawesome:fontawesome
 sergeyt:typeahead
 twbs:bootstrap
-accounts-ui-unstyled
+ian:accounts-ui-bootstrap-3

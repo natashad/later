@@ -16,7 +16,7 @@
     </header>
 
     <!-- Add New Form -->
-    <button class="primary-button new-item-trigger">Add New Item +</button>
+    <button class="btn btn-primary new-item-trigger">Add New Item +</button>
     {{> addItemForm}}
 
     {{> filters}}
@@ -75,7 +75,7 @@
 </template>
 
 <template name="nameFilter">
-  <button class="name-filter" data-checked="{{isChecked}}" data-uname="{{getName}}">{{getName}}</button>
+  <button class="name-filter btn-default btn" data-checked="{{isChecked}}" data-uname="{{getName}}">{{getName}}</button>
 </template>
 
 <template name="task">
@@ -145,7 +145,7 @@
       </select>
     </div>
     <div class="entry"><label for="item_tags">Tags </label><input type="text" name="item_tags" placeholder="" /></div>
-    <div class="entry submit"><button class="button primary-button" type="submit">Submit</button></div>
+    <div class="entry submit"><button class="btn btn-primary" type="submit">Submit</button></div>
   </form>
 </template>
 

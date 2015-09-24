@@ -343,6 +343,7 @@ if (Meteor.isClient) {
 
   Accounts.ui.config({
     passwordSignupFields: "USERNAME_ONLY"
+    // passwordSignupFields: "USERNAME_AND_EMAIL"
   });
 
 // End of Client only code

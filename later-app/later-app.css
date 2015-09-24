@@ -5,30 +5,23 @@ body {
   body .top-bar {
     width: 100%;
     background: black;
-    padding: 10px 40px; }
+    padding: 10px 0; }
     body .top-bar a:hover {
       cursor: pointer; }
-    body .top-bar a.login-link-text {
-      color: white;
-      text-decoration: none; }
-    body .top-bar #login-buttons {
-      display: block;
+    body .top-bar #login-dropdown-list {
+      list-style-type: none;
       text-align: right; }
-      body .top-bar #login-buttons #login-dropdown-list {
-        position: absolute;
-        background: white;
-        top: 30px;
-        right: 40px;
-        padding: 20px; }
-  body button.primary-button {
-    margin: 10px 0;
-    padding: 10px;
-    border: 1px solid #285f8f;
-    border-radius: 5px;
-    background-color: #337ab7;
-    color: white;
-    font-size: 14px;
-    cursor: pointer; }
+      body .top-bar #login-dropdown-list a.dropdown-toggle {
+        padding: 10px 20px;
+        margin-right: 2px;
+        text-decoration: none;
+        color: white; }
+        body .top-bar #login-dropdown-list a.dropdown-toggle:hover {
+          text-decoration: none; }
+      body .top-bar #login-dropdown-list .dropdown-menu {
+        left: initial;
+        right: 0;
+        top: 30px; }
   body form.new-item-form {
     display: none;
     position: fixed;
@@ -119,17 +112,12 @@ body {
     width: 30%;
     float: right;
     padding: 0px 10px; }
-    body .right-container button.name-filter {
-      display: block;
-      width: 100%;
-      margin: 10px;
-      background-color: #DDD;
-      border: 1px solid #c4c4c4;
-      color: #333;
-      padding: 10px; }
-      body .right-container button.name-filter[data-checked="true"] {
-        background-color: #00CC00;
-        border: 1px solid #009900; }
+    body .right-container button.name-filter[data-checked="true"] {
+      background-color: #5cb85c;
+      border: 1px solid #449d44;
+      color: white; }
+      body .right-container button.name-filter[data-checked="true"]:hover {
+        background-color: #80c780; }
   body .left-container {
     width: 70%;
     float: left; }
