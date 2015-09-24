@@ -18,6 +18,10 @@ body {
         color: white; }
         body .top-bar #login-dropdown-list a.dropdown-toggle:hover {
           text-decoration: none; }
+        body .top-bar #login-dropdown-list a.dropdown-toggle:before {
+          font-family: FontAwesome;
+          padding-right: 6px;
+          content: "\f007"; }
       body .top-bar #login-dropdown-list .dropdown-menu {
         left: initial;
         right: 0;

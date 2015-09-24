@@ -24,6 +24,11 @@ body {
         &:hover {
           text-decoration: none;
         }
+        &:before {
+          font-family: FontAwesome;
+          padding-right: 6px;
+          content: "\f007";
+        }
       }
       .dropdown-menu {
         left: initial;
