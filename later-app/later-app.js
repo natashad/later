@@ -89,9 +89,6 @@ if (Meteor.isClient) {
     inboxFilter: function () {
       return Session.get("inboxFilter");
     },
-    outboxFilter: function () {
-      return Session.get("outboxFilter");
-    },
     incompleteCount: function () {
       return Tasks.find({checked: {$ne: true}}).count();
     },
@@ -135,8 +132,7 @@ if (Meteor.isClient) {
         var session_filter = [];
         if (Session.get("inboxFilter"))
           session_filter.push({receiver: {$in: [Meteor.userId()]}});
-
-        if (Session.get("outboxFilter"))
+        else
           session_filter.push({receiver: {$ne: Meteor.userId()}});
 
         if (session_filter.length > 0)
@@ -297,9 +293,6 @@ if (Meteor.isClient) {
     },
     "change .inbox-filter input": function (event) {
       Session.set("inboxFilter", event.target.checked);
-    },
-    "change .outbox-filter input": function (event) {
-      Session.set("outboxFilter", event.target.checked);
     }
   });
 

@@ -2,6 +2,12 @@ body {
   background: #EEE;
   font-size: 16px;
   font-family: sans-serif; }
+  body header {
+    text-align: center; }
+    body header h1 {
+      font-family: 'Lily Script One', cursive;
+      font-size: 64px;
+      text-align: center; }
   body .top-bar {
     width: 100%;
     background: black;
@@ -26,6 +32,68 @@ body {
         left: initial;
         right: 0;
         top: 30px; }
+  body .left-container {
+    width: 70%;
+    float: left;
+    margin-top: 10px; }
+    body .left-container .search-container {
+      margin: 0px;
+      margin-bottom: 10px; }
+      body .left-container .search-container i.fa-search {
+        padding: 10px;
+        padding-left: 20px;
+        position: absolute;
+        color: #505050; }
+      body .left-container .search-container input {
+        width: 100%;
+        display: inline-block;
+        padding: 10px;
+        border-radius: 25px;
+        padding-left: 50px;
+        border: white; }
+    body .left-container ul.list-container {
+      list-style-type: none;
+      margin: 0;
+      padding: 0; }
+      body .left-container ul.list-container li {
+        margin: 0;
+        padding: 20px;
+        background: white;
+        border: 1px solid #DDD;
+        border-top: none; }
+        body .left-container ul.list-container li.checked {
+          opacity: 0.5; }
+        body .left-container ul.list-container li div.controls {
+          float: right;
+          display: none; }
+        body .left-container ul.list-container li:hover div.controls {
+          display: block; }
+          body .left-container ul.list-container li:hover div.controls button {
+            background: inherit;
+            border: none; }
+            body .left-container ul.list-container li:hover div.controls button i {
+              font-size: 20px;
+              color: #666666; }
+              body .left-container ul.list-container li:hover div.controls button i:hover {
+                color: #333; }
+        body .left-container ul.list-container li .creator {
+          margin: 0 10px;
+          padding: 5px;
+          background: #FFFF99;
+          border: 1px solid #DDD;
+          border-radius: 3px;
+          font-size: 14px; }
+          body .left-container ul.list-container li .creator.me {
+            background: #CC99FF; }
+        body .left-container ul.list-container li .tag {
+          margin: 0 10px;
+          padding: 3px;
+          background: #EEE;
+          border: 1px solid #DDD;
+          border-radius: 3px;
+          font-size: 14px; }
+      body .left-container ul.list-container li:first-child {
+        border-top: 1px solid #DDD; }
   body form.new-item-form {
     display: none;
     position: fixed;
@@ -69,51 +137,9 @@ body {
         font-size: 16px;
         padding: 5px 10px;
         cursor: pointer; }
-  body ul.list-container {
-    list-style-type: none;
-    margin: 0;
-    padding: 0; }
-    body ul.list-container li {
-      margin: 0;
-      padding: 20px;
-      background: white;
-      border: 1px solid #DDD;
-      border-top: none; }
-      body ul.list-container li.checked {
-        opacity: 0.5; }
-      body ul.list-container li div.controls {
-        float: right;
-        display: none; }
-      body ul.list-container li:hover div.controls {
-        display: block; }
-        body ul.list-container li:hover div.controls button {
-          background: inherit;
-          border: none; }
-          body ul.list-container li:hover div.controls button i {
-            font-size: 20px;
-            color: #666666; }
-            body ul.list-container li:hover div.controls button i:hover {
-              color: #333; }
-      body ul.list-container li .creator {
-        margin: 0 10px;
-        padding: 5px;
-        background: #FFFF99;
-        border: 1px solid #DDD;
-        border-radius: 3px;
-        font-size: 14px; }
-        body ul.list-container li .creator.me {
-          background: #CC99FF; }
-      body ul.list-container li .tag {
-        margin: 0 10px;
-        padding: 3px;
-        background: #EEE;
-        border: 1px solid #DDD;
-        border-radius: 3px;
-        font-size: 14px; }
-    body ul.list-container li:first-child {
-      border-top: 1px solid #DDD; }
   body .right-container {
     width: 30%;
+    margin-top: 10px;
     float: right;
     padding: 0px 10px; }
     body .right-container button.name-filter[data-checked="true"] {
@@ -122,8 +148,5 @@ body {
       color: white; }
       body .right-container button.name-filter[data-checked="true"]:hover {
         background-color: #80c780; }
-  body .left-container {
-    width: 70%;
-    float: left; }
 
 /*# sourceMappingURL=later-app.css.map */

@@ -1,5 +1,6 @@
 <head>
-  <title>LATer</title>
+  <title>Later</title>
+  <link href='https://fonts.googleapis.com/css?family=Lily+Script+One' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
@@ -12,14 +13,13 @@
 
     {{#if currentUser}}
     <header>
-      <h1>My Bookmarks ({{incompleteCount}} new)</h1>
+      <h1>Later</h1>
+      
+      <!-- Add New Form -->
+      <button class="btn btn-primary new-item-trigger">Add New Item +</button>
+      {{> addItemForm}}
     </header>
 
-    <!-- Add New Form -->
-    <button class="btn btn-primary new-item-trigger">Add New Item +</button>
-    {{> addItemForm}}
-
-    {{> filters}}
 
     <ul class="notifications-container">
       {{#each notifications}}
@@ -28,15 +28,17 @@
     </ul>
 
     <div class="left-container">
-      <label>
-        <input type="text" class="search-bar"/>
-      </label>
+      <div class="search-container">
+        <i class="fa fa-search"></i><input type="text" class="search-bar" name="search" placeholder="Search" />
+      </div>
       <div class="task-list">
         {{> taskList}}
       </div>
     </div>
 
     <div class="right-container">
+      {{> filters}}
+
       {{#each friends}}
         {{> nameFilter}}
       {{/each}}
@@ -75,11 +77,9 @@
   <label class="other-filter filter">
     <input type="checkbox" checked="{{otherFilter}}" />Other
   </label>
-  <label class="inbox-filter filter">
+
+ <label class="inbox-filter filter">
     <input type="checkbox" checked="{{inboxFilter}}" />Inbox
-  </label>
-  <label class="outbox-filter filter">
-    <input type="checkbox" checked="{{outboxFilter}}" />Outbox
   </label>
 </template>
 
