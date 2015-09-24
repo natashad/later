@@ -369,6 +369,9 @@ if (Meteor.isClient) {
     },
     'isIncoming': function() {
       return this.receiver == Meteor.userId();
+    },
+    'tags': function() {
+      return this.tags;
     }
   });
 
@@ -379,8 +382,23 @@ if (Meteor.isClient) {
     },
     "click .delete": function () {
       Meteor.call("deleteTask", this._id);
+    },
+    "keyup .new-tag input": function (e) {
+      if(e.keyCode == 13) {
+        var newTag = e.target.value;
+        if($.inArray(newTag, this.tags) == -1) {
+          Meteor.call("addTag", this._id, newTag);
+        }
+        e.target.value = "";
+      }
     }
   });
+
+  Template.tag.helpers({
+    'getName': function () {
+      return this;
+    }
+  })
 
   Accounts.ui.config({
     passwordSignupFields: "USERNAME_ONLY"
@@ -457,5 +475,14 @@ Meteor.methods({
   },
   getUsername: function (id) {
     return getUsernameForID(id);
+  },
+  addTag: function(id, newTag) {
+    tags = Tasks.findOne({_id: id}).tags;
+
+    tags = tags? tags : [];
+
+    tags.push(newTag);
+
+    Tasks.update(id, {$set: {'tags' : tags}});
   }
 });
