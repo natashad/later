@@ -28,11 +28,12 @@
     </ul>
 
     <div class="left-container">
-      <ul class="list-container">
-        {{#each tasks}}
-          {{> task}}
-        {{/each}}
-      </ul>
+      <label>
+        <input type="text" class="search-bar"/>
+      </label>
+      <div class="task-list">
+        {{> taskList}}
+      </div>
     </div>
 
     <div class="right-container">
@@ -49,6 +50,14 @@
     {{/if}}
   </div>
 </body>
+
+<template name="taskList">
+  <ul class="list-container">
+    {{#each tasks}}
+      {{> task}}
+    {{/each}}
+  </ul>
+</template>
 
 <template name="filters">
   <label class="hide-completed filter">
