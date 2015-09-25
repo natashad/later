@@ -65,8 +65,12 @@ body {
         border-top: none; }
         body .left-container ul.list-container li.checked {
           opacity: 0.5; }
+        body .left-container ul.list-container li .item-content {
+          position: relative; }
         body .left-container ul.list-container li div.controls {
-          float: right;
+          position: absolute;
+          top: 0;
+          right: 0;
           display: none; }
         body .left-container ul.list-container li:hover div.controls {
           display: block; }
