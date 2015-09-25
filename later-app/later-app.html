@@ -65,8 +65,9 @@
 
 <template name="filters">
   <label class="hide-completed filter">
-    <input type="checkbox" checked="{{hideCompleted}}" />Hide Completed Items
-  </label>
+    <input type="checkbox" checked="{{hideCompleted}}" />Hide Completed
+  </label><br />
+
   <label class="article-filter filter">
     <input type="checkbox" checked="{{articleFilter}}" />Article
   </label>
@@ -78,11 +79,11 @@
   </label>
   <label class="other-filter filter">
     <input type="checkbox" checked="{{otherFilter}}" />Other
-  </label>
+  </label><br />
 
  <label class="inbox-filter filter">
     <input type="checkbox" checked="{{inboxFilter}}" />Inbox
-  </label>
+  </label><br />
 </template>
 
 <template name="nameFilter">
@@ -93,28 +94,31 @@
   <li class="{{#if checked}}checked{{/if}}">
 
     <div class="item-content">
-      <i class="fa {{getTypeFontAwesome}}"></i>
-        <a target="_blank" href="{{link}}" alt="{{#if title}}{{title}}{{else}}{{link}}{{/if}}">{{#if title}}{{title}}{{else}}{{link}}{{/if}}</a>
-      ({{length}})
-      {{#if isIncoming}}
-        <span class="creator {{#if creatorIsReceiver}}me{{/if}}">{{#if creatorIsReceiver}}Me{{else}}{{getCreator}}{{/if}}</span>
-        <span class="tag">Inbox</span>
-      {{else}}
-        <span class="creator">{{getReceiver}}</span>
-        <span class="tag">Outbox</span>
-      {{/if}}
-      <div class="tags">
-        {{#each tags}}
-          {{> tag}}
-        {{/each}}
-        <span class="tag new-tag">
-          <i class="fa fa-tag"></i>
-          <input type="text" placeholder="Add tag..."/>
-        </span>
+      <div class="item-left">
+        {{#if isIncoming}}<i class="fa fa-arrow-circle-o-down"></i>{{else}}<i class="fa fa-arrow-circle-o-up"></i>{{/if}}
       </div>
-      <div class="controls">
-        {{#if isIncoming}}<button class="toggle-checked" alt="seen" data-checked="true"><i class="fa-check fa"></i></button>{{/if}}
-        <button class="delete"><i class="fa fa-times"></i></button>
+      <div class="item-right">
+        <i class="fa {{getTypeFontAwesome}}"></i>
+          <a target="_blank" href="{{link}}" alt="{{#if title}}{{title}}{{else}}{{link}}{{/if}}">{{#if title}}{{title}}{{else}}{{link}}{{/if}}</a>
+        ({{length}})
+        {{#if isIncoming}}
+          <span class="creator {{#if creatorIsReceiver}}me{{/if}}">{{#if creatorIsReceiver}}Me{{else}}{{getCreator}}{{/if}}</span>
+        {{else}}
+          <span class="creator">{{getReceiver}}</span>
+        {{/if}}
+        <div class="tags">
+          {{#each tags}}
+            {{> tag}}
+          {{/each}}
+          <span class="tag new-tag">
+            <i class="fa fa-tag"></i>
+            <input type="text" placeholder="Add tag..."/>
+          </span>
+        </div>
+        <div class="controls">
+          {{#if isIncoming}}<button class="toggle-checked" alt="seen" data-checked="true"><i class="fa-check fa"></i></button>{{/if}}
+          <button class="delete"><i class="fa fa-times"></i></button>
+        </div>
       </div>
     </div>
 
@@ -141,7 +145,7 @@
 
 <template name="addItemForm">
   <div class="dropdown-menu" aria-labelledby="dLabel">
-    <form class="new-item-form">
+    <form class="new-item-form form-horizontal">
       <div class="entry error"></div>
       <div class="entry"><label for="item_receiver">For * </label>
         <input type="text" name="item_receiver" class="form-control typeahead" placeholder="Type to query"
