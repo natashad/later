@@ -17,8 +17,10 @@ body {
       font-family: 'Lily Script One', cursive;
       font-size: 64px;
       text-align: center;
+      margin-top: 20px;
+      padding: 0;
     }
-    text-align: center; 
+    text-align: center;
   }
 
   .top-bar {
@@ -133,13 +135,20 @@ body {
     }
   }
 
+  div.new-item-dropdown {
+    float: right;
+    margin-top: 15px;
+    .new-item-trigger {
+      border-radius: 50%;
+      font-weight: bold;
+    }
+
+    .dropdown-menu {
+      left: initial;
+      right: 0;
+    }
+  }
   form.new-item-form {
-    display: none;
-    position: fixed;
-    z-index: 100;
-    background: white;
-    border: 1px solid $dark-gray;
-    border-radius: 5px;
     width: 320px;
 
     .entry {

@@ -7,7 +7,9 @@ body {
     body header h1 {
       font-family: 'Lily Script One', cursive;
       font-size: 64px;
-      text-align: center; }
+      text-align: center;
+      margin-top: 20px;
+      padding: 0; }
   body .top-bar {
     width: 100%;
     background: black;
@@ -94,13 +96,16 @@ body {
           font-size: 14px; }
       body .left-container ul.list-container li:first-child {
         border-top: 1px solid #DDD; }
+  body div.new-item-dropdown {
+    float: right;
+    margin-top: 15px; }
+    body div.new-item-dropdown .new-item-trigger {
+      border-radius: 50%;
+      font-weight: bold; }
+    body div.new-item-dropdown .dropdown-menu {
+      left: initial;
+      right: 0; }
   body form.new-item-form {
-    display: none;
-    position: fixed;
-    z-index: 100;
-    background: white;
-    border: 1px solid #333;
-    border-radius: 5px;
     width: 320px; }
     body form.new-item-form .entry {
       margin: 10px; }

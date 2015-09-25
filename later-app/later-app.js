@@ -179,6 +179,7 @@ if (Meteor.isClient) {
 
   Template.addItemForm.onRendered(function() {
     Meteor.typeahead.inject();
+    $('.dropdown-toggle').dropdown()
   }),
 
   // TODO : move a bunch of this to the form template
@@ -197,14 +198,12 @@ if (Meteor.isClient) {
       }
       var type = event.target.item_type.value;
       var length = event.target.item_length.value;
-      var tags = event.target.item_tags.value;
 
       var item = {receiver: receiver,
                   title: title,
                   link: link,
                   type: type,
                   length: length,
-                  tags: tags
                 };
 
 
@@ -216,16 +215,10 @@ if (Meteor.isClient) {
         } else {
           // Clear form
           event.target.reset();
-          $('.new-item-form').hide();
+          $('.new-item-trigger').trigger('click');
         }
       });
 
-    },
-    "click .new-item-trigger": function (event) {
-      $('.new-item-form').toggle();
-    },
-    "click .close-form a": function (event) {
-      $('.new-item-form').hide();
     },
     "keyup .search-bar": function (event) {
       Session.set("forceUpdateTasks", new Date());
@@ -423,7 +416,6 @@ Meteor.methods({
       link: item.link,
       type: item.type,
       length: item.length,
-      tags: item.tags,
       createdAt: new Date(),
       creator: Meteor.userId()
     });

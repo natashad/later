@@ -11,16 +11,18 @@
 
   <div class="container">
 
-    {{#if currentUser}}
     <header>
-      <h1>Later</h1>
-      
-      <!-- Add New Form -->
-      <button class="btn btn-primary new-item-trigger">Add New Item +</button>
-      {{> addItemForm}}
+      {{#if currentUser}}
+        <!-- Add New Form -->
+        <div class="dropdown new-item-dropdown">
+          <button id="dLabel" class="btn btn-primary new-item-trigger" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">+</button>
+          {{> addItemForm}}
+        </div>
+      {{/if}}
+      <h1>Later...</h1>
     </header>
 
-
+    {{#if currentUser}}
     <ul class="notifications-container">
       {{#each notifications}}
         {{> manageFriendship}}
@@ -138,37 +140,37 @@
 </template>
 
 <template name="addItemForm">
-  <form class="new-item-form">
-    <div class="close-form"><a>x</a></div>
-    <div class="entry error"></div>
-    <div class="entry"><label for="item_receiver">For * </label>
-      <input type="text" name="item_receiver" class="form-control typeahead" placeholder="Type to query"
-         autocomplete="off" spellcheck="off"
-         data-source="friends"
-         data-min-length=0 />
-    </div>
-    <div class="entry"><label for="item_title">Title </label><input type="text" name="item_title" placeholder="" /></div>
-    <div class="entry"><label for="item_link">Link * </label><input type="text" name="item_link" placeholder="" /></div>
-    <div class="entry">
-      <label for="item_type">Type </label>
-      <select name="item_type">
-        <option value="article">Article</option>
-        <option value="video">Video</option>
-        <option value="music">Music</option>
-        <option value="other">Other</option>
-      </select>
-    </div>
-    <div class="entry">
-      <label for="item_length">Length </label>
-      <select name="item_length">
-        <option value="short">Short</option>
-        <option value="medium">Medium</option>
-        <option value="long">Long</option>
-      </select>
-    </div>
-    <div class="entry"><label for="item_tags">Tags </label><input type="text" name="item_tags" placeholder="" /></div>
-    <div class="entry submit"><button class="btn btn-primary" type="submit">Submit</button></div>
-  </form>
+  <div class="dropdown-menu" aria-labelledby="dLabel">
+    <form class="new-item-form">
+      <div class="entry error"></div>
+      <div class="entry"><label for="item_receiver">For * </label>
+        <input type="text" name="item_receiver" class="form-control typeahead" placeholder="Type to query"
+           autocomplete="off" spellcheck="off"
+           data-source="friends"
+           data-min-length=0 />
+      </div>
+      <div class="entry"><label for="item_title">Title </label><input type="text" name="item_title" placeholder="" /></div>
+      <div class="entry"><label for="item_link">Link * </label><input type="text" name="item_link" placeholder="" /></div>
+      <div class="entry">
+        <label for="item_type">Type </label>
+        <select name="item_type">
+          <option value="article">Article</option>
+          <option value="video">Video</option>
+          <option value="music">Music</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="entry">
+        <label for="item_length">Length </label>
+        <select name="item_length">
+          <option value="short">Short</option>
+          <option value="medium">Medium</option>
+          <option value="long">Long</option>
+        </select>
+      </div>
+      <div class="entry submit"><button class="btn btn-primary" type="submit">Save</button></div>
+    </form>
+ </div>
 </template>
 
 <template name="friend-template">
