@@ -167,5 +167,11 @@ body {
       color: white; }
       body .right-container button.name-filter[data-checked="true"]:hover {
         background-color: #80c780; }
+  body .manage-blocked-container {
+    margin-top: 10px; }
+    body .manage-blocked-container ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0; }
 
 /*# sourceMappingURL=later-app.css.map */

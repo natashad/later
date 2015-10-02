@@ -44,13 +44,30 @@
       {{#each friends}}
         {{> nameFilter}}
       {{/each}}
-    </div>
 
-    <ul class="manage-blocked-container">
-      {{#each blockedFriends}}
-        {{> manageBlocked}}
-      {{/each}}
-    </ul>
+      {{#if hasBlockedFriends}}
+        <div class="manage-blocked-container">
+          <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="manageBlockedHeading">
+              <h4 class="panel-title">
+                <a role="button" data-toggle="collapse" href="#manageBlockedCollapse" aria-expanded="false" aria-controls="manageBlockedCollapse">
+                  Manage Blocked Users <i class="fa fa-caret-down"></i>
+                </a>
+              </h4>
+            </div>
+            <div id="manageBlockedCollapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="manageBlockedHeading">
+              <div class="panel-body">
+                <ul>
+                {{#each blockedFriends}}
+                  {{> manageBlocked}}
+                {{/each}}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      {{/if}}
+    </div>
     {{/if}}
   </div>
 </body>
@@ -139,7 +156,7 @@
 
 <template name="manageBlocked">
   <li>
-    {{getFriendName}} <button class="approve">Approve</button>
+     <span class="approve"><a href="#" title="approve"><i class="fa fa-plus-square"></i></a></span> {{getFriendName}}
   </li>
 </template>
 
