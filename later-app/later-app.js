@@ -63,8 +63,12 @@ if (Meteor.isClient) {
   Meteor.subscribe("notifications");
 
   function friends() {
-      var case1 = Friends.find().map(function(f) {return [f.friend_name, f.user_name]});
+      var case1 = Friends.find({approved: true}).map(function(f) {return [f.friend_name, f.user_name]});
       return $.unique([].concat.apply([], case1));
+  }
+
+  function getBlockedFriends() {
+    return Friends.find({approved: false, friend_id: Meteor.userId()});
   }
 
   Template.body.helpers({
@@ -96,7 +100,10 @@ if (Meteor.isClient) {
       return friends();
     },
     blockedFriends: function() {
-      return Friends.find({approved: false, friend_id: Meteor.userId()});
+      return getBlockedFriends();
+    },
+    hasBlockedFriends: function() {
+      return getBlockedFriends().count();
     }
   });
 
