@@ -100,7 +100,6 @@
       <div class="item-right">
         <i class="fa {{getTypeFontAwesome}}"></i>
           <a target="_blank" href="{{link}}" alt="{{#if title}}{{title}}{{else}}{{link}}{{/if}}">{{#if title}}{{title}}{{else}}{{link}}{{/if}}</a>
-        ({{length}})
         {{#if isIncoming}}
           <span class="creator {{#if creatorIsReceiver}}me{{/if}}">{{#if creatorIsReceiver}}Me{{else}}{{getCreator}}{{/if}}</span>
         {{else}}
@@ -153,25 +152,7 @@
            data-source="friends"
            data-min-length=0 />
       </div>
-      <div class="entry"><label for="item_title">Title </label><input type="text" name="item_title" placeholder="" /></div>
       <div class="entry"><label for="item_link">Link * </label><input type="text" name="item_link" placeholder="" /></div>
-      <div class="entry">
-        <label for="item_type">Type </label>
-        <select name="item_type">
-          <option value="article">Article</option>
-          <option value="video">Video</option>
-          <option value="music">Music</option>
-          <option value="other">Other</option>
-        </select>
-      </div>
-      <div class="entry">
-        <label for="item_length">Length </label>
-        <select name="item_length">
-          <option value="short">Short</option>
-          <option value="medium">Medium</option>
-          <option value="long">Long</option>
-        </select>
-      </div>
       <div class="entry submit"><button class="btn btn-primary" type="submit">Save</button></div>
     </form>
  </div>

@@ -191,21 +191,14 @@ if (Meteor.isClient) {
 
       // Get value from form element
       var receiver = event.target.item_receiver.value;
-      var title = event.target.item_title.value;
       var link = event.target.item_link.value;
       if (link.indexOf('http') !== 0) {
         link = "http://" + link;
       }
-      var type = event.target.item_type.value;
-      var length = event.target.item_length.value;
 
       var item = {receiver: receiver,
-                  title: title,
                   link: link,
-                  type: type,
-                  length: length,
-                };
-
+                 };
 
       // Insert a task into the collection
       Meteor.call("addTask", item, function(error, result) {
@@ -410,12 +403,13 @@ Meteor.methods({
       throw new Meteor.Error("no-user", "User " + item.receiver + " does not exist");
     }
 
+    meta = extractMeta(item.link);
+
     Tasks.insert({
       receiver: receiverID,
-      title: item.title,
+      title: meta.title,
       link: item.link,
-      type: item.type,
-      length: item.length,
+      type: meta.type,
       createdAt: new Date(),
       creator: Meteor.userId()
     });
