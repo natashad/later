@@ -113,6 +113,7 @@
     <div class="item-content">
       <div class="item-left">
         {{#if isIncoming}}<i class="fa fa-arrow-circle-o-down"></i>{{else}}<i class="fa fa-arrow-circle-o-up"></i>{{/if}}
+        {{#if hasImage}}<img src={{image}} height=60 width=60>{{/if}}
       </div>
       <div class="item-right">
         <i class="fa {{getTypeFontAwesome}}"></i>
@@ -131,6 +132,7 @@
             <input type="text" placeholder="Add tag..."/>
           </span>
         </div>
+        {{#if hasDescription}}<div>{{description}}</div>{{/if}}
         <div class="controls">
           {{#if isIncoming}}<button class="toggle-checked" alt="seen" data-checked="true"><i class="fa-check fa"></i></button>{{/if}}
           <button class="delete"><i class="fa fa-times"></i></button>

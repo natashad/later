@@ -1,16 +1,18 @@
 if (Meteor.isServer) {
 
-  extractMeta = function (params) {
+  extractMeta = function (url) {
     var html;
     var meta = {};
 
     try {
-      var result = HTTP.call('GET', params);
+      var result = HTTP.call('GET', url);
       if(result.statusCode !== 200) {
+        console.log("Bad HTTP Status of " + result.statusCode +  "from: " + url);
         return {};
       }
       html = result.content;
     } catch (e) {
+      console.log("Error: " + e);
       return {};
     }
 

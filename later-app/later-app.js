@@ -358,6 +358,12 @@ if (Meteor.isClient) {
     },
     'tags': function() {
       return this.tags;
+    },
+    'hasImage': function() {
+      return this.image;
+    },
+    'hasDescription': function() {
+      return this.description;
     }
   });
 
@@ -404,22 +410,37 @@ Meteor.methods({
 
     var receiverID = getIDForUsername(item.receiver);
 
-    if (! receiverID && this.isSimulation) {
-      return;
-    } else if (! receiverID) {
+    if (! receiverID) {
       throw new Meteor.Error("no-user", "User " + item.receiver + " does not exist");
+    } else if (this.isSimulation) {
+      return;
     }
 
     meta = extractMeta(item.link);
 
-    Tasks.insert({
+    var newTask = {
       receiver: receiverID,
-      title: meta.title,
       link: item.link,
-      type: meta.type,
       createdAt: new Date(),
       creator: Meteor.userId()
-    });
+    };
+
+    newTask.title = meta.title? meta.title : item.link;
+
+    newTask.image = meta.image? meta.image : null;
+    newTask.description = meta.description? meta.description : null;
+
+    if(meta.type && meta.type.indexOf("video") === 0) {
+      newTask.type = meta.type;
+    } else if(meta.type && meta.type.indexOf("music") === 0) {
+      newTask.type = meta.type;
+    } else if(meta.type == "article") {
+      newTask.type = "article";
+    } else {
+      newTask.type = "other";
+    }
+
+    Tasks.insert(newTask);
 
     if (!Friends.findOne({user_name: Meteor.user().username, friend_name: item.receiver})) {
       Friends.insert({
