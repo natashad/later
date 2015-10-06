@@ -87,6 +87,9 @@ if (Meteor.isClient) {
     musicFilter: function () {
       return Session.get("musicFilter");
     },
+    imageFilter: function () {
+      return Session.get("imageFilter");
+    },
     otherFilter: function () {
       return Session.get("otherFilter");
     },
@@ -126,6 +129,9 @@ if (Meteor.isClient) {
 
         if (Session.get("musicFilter"))
           type_filter.push({type: {$in: ["music"]}});
+
+        if (Session.get("imageFilter"))
+          type_filter.push({type: {$in: ["image"]}});
 
         if (Session.get("otherFilter"))
           type_filter.push({type: {$in: ["other"]}});
@@ -237,6 +243,7 @@ if (Meteor.isClient) {
       $(".hide-completed input")[0].click();
       $(".article-filter input")[0].click();
       $(".video-filter input")[0].click();
+      $(".image-filter input")[0].click();
       $(".music-filter input")[0].click();
       $(".other-filter input")[0].click();
       $(".inbox-filter input")[0].click();
@@ -280,6 +287,9 @@ if (Meteor.isClient) {
     },
      "change .music-filter input": function (event) {
       Session.set("musicFilter", event.target.checked);
+    },
+    "change .image-filter input": function (event) {
+      Session.set("imageFilter", event.target.checked);
     },
      "change .other-filter input": function (event) {
       Session.set("otherFilter", event.target.checked);
@@ -346,6 +356,8 @@ if (Meteor.isClient) {
           return 'fa-video-camera';
         case 'music':
           return 'fa-headphones';
+        case 'image':
+          return 'fa-picture-o';
         case 'other':
           return 'fa-external-link';
       }
@@ -436,6 +448,8 @@ Meteor.methods({
       newTask.type = meta.type;
     } else if(meta.type == "article") {
       newTask.type = "article";
+    } else if(meta.type == "image") {
+      newTask.type = "image";
     } else {
       newTask.type = "other";
     }
