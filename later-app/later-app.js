@@ -75,6 +75,12 @@ if (Meteor.isClient) {
     notifications: function () {
       return Notifications.find();
     },
+    notificationsCount: function() {
+      return Notifications.find().count();
+    },
+    hasNotifications: function() {
+      return Notifications.find().count() > 0;
+    },
     hideCompleted: function () {
       return Session.get("hideCompleted");
     },
@@ -221,13 +227,16 @@ if (Meteor.isClient) {
         } else {
           // Clear form
           event.target.reset();
-          $('.new-item-trigger').trigger('click');
         }
       });
 
     },
     "keyup .search-bar": function (event) {
       Session.set("forceUpdateTasks", new Date());
+    },
+    "click .notifications-trigger": function(event) {
+      console.log('click');
+      $('.notifications-container-dropdown').toggle();
     }
   });
 
@@ -430,8 +439,6 @@ Meteor.methods({
     } else if (this.isSimulation) {
       return;
     }
-
-    meta = extractMeta(item.link);
 
     var newTask = {
       receiver: receiverID,
