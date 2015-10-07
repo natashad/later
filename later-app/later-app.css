@@ -31,15 +31,46 @@ body {
         color: white;
         cursor: pointer;
         padding-left: 20px;
-        padding-right: 20px; }
+        padding-right: 20px;
+        position: relative; }
+        body .top-bar .notifications-box .notifications-trigger .notifications-count {
+          background-color: red;
+          padding: 3px 4px;
+          font-size: 10px;
+          font-weight: bold;
+          position: absolute;
+          border-radius: 3px;
+          top: -10px;
+          left: 30px; }
       body .top-bar .notifications-box .notifications-container-dropdown {
-        display: none;
         position: absolute;
         right: 0;
         background: white;
-        padding: 10px;
+        padding: 0;
         margin-top: 10px;
-        left: initial; }
+        left: initial;
+        width: 400px; }
+        body .top-bar .notifications-box .notifications-container-dropdown div.no-notifications {
+          padding: 10px; }
+        body .top-bar .notifications-box .notifications-container-dropdown ul {
+          list-style-type: none;
+          padding: 0;
+          margin: 0; }
+          body .top-bar .notifications-box .notifications-container-dropdown ul li {
+            padding: 5px 10px;
+            margin: 0;
+            border-bottom: 1px solid #DDD; }
+            body .top-bar .notifications-box .notifications-container-dropdown ul li:hover {
+              background-color: #f2f2f2; }
+            body .top-bar .notifications-box .notifications-container-dropdown ul li button.approve, body .top-bar .notifications-box .notifications-container-dropdown ul li button.block {
+              background: none;
+              border: none;
+              padding: 5px;
+              font-weight: bold; }
+            body .top-bar .notifications-box .notifications-container-dropdown ul li button.approve:hover {
+              color: #5cb85c; }
+            body .top-bar .notifications-box .notifications-container-dropdown ul li button.block:hover {
+              color: red; }
     body .top-bar #login-dropdown-list {
       list-style-type: none; }
       body .top-bar #login-dropdown-list a.dropdown-toggle {

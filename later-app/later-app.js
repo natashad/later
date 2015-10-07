@@ -234,10 +234,6 @@ if (Meteor.isClient) {
     "keyup .search-bar": function (event) {
       Session.set("forceUpdateTasks", new Date());
     },
-    "click .notifications-trigger": function(event) {
-      console.log('click');
-      $('.notifications-container-dropdown').toggle();
-    }
   });
 
   Template.filters.helpers({

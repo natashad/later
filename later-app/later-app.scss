@@ -47,15 +47,54 @@ body {
         cursor: pointer;
         padding-left: 20px;
         padding-right: 20px;
+        position: relative;
+        .notifications-count {
+          background-color: red;
+          padding: 3px 4px;
+          font-size: 10px;
+          font-weight: bold;
+          position: absolute;
+          border-radius: 3px;
+          top: -10px;
+          left: 30px;
+        }
       }
       .notifications-container-dropdown {
-        display: none;
         position: absolute;
         right: 0;
         background: white;
-        padding: 10px;
+        padding: 0;
         margin-top: 10px;
         left: initial;
+        width: 400px;
+        div.no-notifications {
+          padding: 10px;
+        }
+        ul {
+          list-style-type: none;
+          padding: 0;
+          margin: 0;
+          li {
+            &:hover {
+              background-color: darken(white, 5%);
+            }
+            padding: 5px 10px;
+            margin: 0;
+            border-bottom: 1px solid $light-gray;
+            button.approve, button.block {
+              background: none;
+              border: none;
+              padding: 5px;
+              font-weight: bold;
+            }
+            button.approve:hover {
+              color: $green;
+            }
+            button.block:hover {
+              color: red;
+            }
+          }
+        }
       }
     }
     #login-dropdown-list {
