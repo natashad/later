@@ -147,7 +147,8 @@ body {
       -webkit-border-radius: 8px;
       -moz-border-radius: 8px;
       border-radius: 8px;
-      outline: none; }
+      outline: none;
+      padding: 0 10px; }
     body form.new-item-form input:focus {
       border: 2px solid #0097cf;
       box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6); }
