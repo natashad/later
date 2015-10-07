@@ -161,17 +161,47 @@ body {
     margin-top: 10px;
     float: right;
     padding: 0px 10px; }
-    body .right-container button.name-filter[data-checked="true"] {
-      background-color: #5cb85c;
-      border: 1px solid #449d44;
-      color: white; }
-      body .right-container button.name-filter[data-checked="true"]:hover {
-        background-color: #80c780; }
+    body .right-container button.name-filter {
+      display: block;
+      width: 80%;
+      margin: 5px 0; }
+      body .right-container button.name-filter[data-checked="true"] {
+        background-color: #5cb85c;
+        border: 1px solid #449d44;
+        color: white; }
+        body .right-container button.name-filter[data-checked="true"]:hover {
+          background-color: #80c780; }
   body .manage-blocked-container {
     margin-top: 10px; }
     body .manage-blocked-container ul {
       list-style-type: none;
       padding: 0;
       margin: 0; }
+  body button.switch-toggle {
+    width: 90px;
+    cursor: pointer;
+    background-color: #5cb85c;
+    padding: 0;
+    padding-left: 20px;
+    border-radius: 5px;
+    border: 1px solid #333; }
+    body button.switch-toggle span.toggle-opt {
+      background: white;
+      width: 100%;
+      display: inline-block;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      border-radius: 5px;
+      font-size: 12px; }
+    body button.switch-toggle span.toggle-opt-2 {
+      display: none; }
+    body button.switch-toggle[data-checked="false"] {
+      padding: 0;
+      padding-right: 20px;
+      background-color: #337ab7; }
+      body button.switch-toggle[data-checked="false"] span.toggle-opt-2 {
+        display: inline-block; }
+      body button.switch-toggle[data-checked="false"] span.toggle-opt-1 {
+        display: none; }
 
 /*# sourceMappingURL=later-app.css.map */

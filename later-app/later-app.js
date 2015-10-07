@@ -246,7 +246,7 @@ if (Meteor.isClient) {
       $(".image-filter input")[0].click();
       $(".music-filter input")[0].click();
       $(".other-filter input")[0].click();
-      $(".inbox-filter input")[0].click();
+      $(".inbox-filter")[0].click();
     }
   }
 
@@ -294,8 +294,11 @@ if (Meteor.isClient) {
      "change .other-filter input": function (event) {
       Session.set("otherFilter", event.target.checked);
     },
-    "change .inbox-filter input": function (event) {
-      Session.set("inboxFilter", event.target.checked);
+    "click .inbox-filter": function (event) {
+      $target = $(event.target).closest('.inbox-filter');
+      $target.data('checked', !($target.data('checked')));
+      $target.attr('data-checked', $target.data('checked'));
+      Session.set("inboxFilter", $target.data('checked'));
     }
   });
 
