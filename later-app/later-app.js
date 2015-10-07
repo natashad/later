@@ -440,6 +440,8 @@ Meteor.methods({
       return;
     }
 
+    meta = extractMeta(item.link);
+
     var newTask = {
       receiver: receiverID,
       link: item.link,

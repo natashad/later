@@ -99,7 +99,7 @@
       <span><span class="toggle-opt toggle-opt-2">OUTBOX</span></span>
     </button>
     <label class="hide-completed filter">
-      <input type="checkbox" checked="{{hideCompleted}}" />Hide Completed
+      <input type="checkbox" checked="{{hideCompleted}}" /> Hide Completed
     </label>
   </div>
   <div class="filter-row">
@@ -129,31 +129,27 @@
   <li class="{{#if checked}}checked{{/if}}">
 
     <div class="item-content">
-      <div class="item-left">
-        {{#if hasImage}}<img src={{image}} height=60 width=60>{{/if}}
+      {{#if hasImage}}<img src={{image}} height=60 width=60>{{/if}}
+      <i class="fa {{getTypeFontAwesome}}"></i>
+        <a target="_blank" href="{{link}}" alt="{{#if title}}{{title}}{{else}}{{link}}{{/if}}">{{#if title}}{{title}}{{else}}{{link}}{{/if}}</a>
+      {{#if isIncoming}}
+        <span class="creator {{#if creatorIsReceiver}}me{{/if}}">{{#if creatorIsReceiver}}Me{{else}}{{getCreator}}{{/if}}</span>
+      {{else}}
+        <span class="creator">{{getReceiver}}</span>
+      {{/if}}
+      <div class="tags">
+        {{#each tags}}
+          {{> tag}}
+        {{/each}}
+        <span class="tag new-tag">
+          <i class="fa fa-tag"></i>
+          <input type="text" placeholder="Add tag..."/>
+        </span>
       </div>
-      <div class="item-right">
-        <i class="fa {{getTypeFontAwesome}}"></i>
-          <a target="_blank" href="{{link}}" alt="{{#if title}}{{title}}{{else}}{{link}}{{/if}}">{{#if title}}{{title}}{{else}}{{link}}{{/if}}</a>
-        {{#if isIncoming}}
-          <span class="creator {{#if creatorIsReceiver}}me{{/if}}">{{#if creatorIsReceiver}}Me{{else}}{{getCreator}}{{/if}}</span>
-        {{else}}
-          <span class="creator">{{getReceiver}}</span>
-        {{/if}}
-        <div class="tags">
-          {{#each tags}}
-            {{> tag}}
-          {{/each}}
-          <span class="tag new-tag">
-            <i class="fa fa-tag"></i>
-            <input type="text" placeholder="Add tag..."/>
-          </span>
-        </div>
-        {{#if hasDescription}}<div>{{description}}</div>{{/if}}
-        <div class="controls">
-          {{#if isIncoming}}<button class="toggle-checked" alt="seen" data-checked="true"><i class="fa-check fa"></i></button>{{/if}}
-          <button class="delete"><i class="fa fa-times"></i></button>
-        </div>
+      {{#if hasDescription}}<div>{{description}}</div>{{/if}}
+      <div class="controls">
+        {{#if isIncoming}}<button class="toggle-checked" alt="seen" data-checked="true"><i class="fa-check fa"></i></button>{{/if}}
+        <button class="delete"><i class="fa fa-times"></i></button>
       </div>
     </div>
 
@@ -181,7 +177,7 @@
 <template name="addItemForm">
   <form class="new-item-form form-horizontal">
     <div class="entry error"></div>
-    <label for="item_receiver">For:</label>
+    <label for="item_receiver">Add a Link For:</label>
     <input type="text" name="item_receiver" class="form-control typeahead" placeholder="Type a username"
          autocomplete="off" spellcheck="off"
          data-source="friends"
