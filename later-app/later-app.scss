@@ -225,6 +225,9 @@ body {
     float: right;
     padding: 0px 10px;
     button.name-filter {
+      display: block;
+      width: 80%;
+      margin: 5px 0;
       &[data-checked="true"] {
         background-color: $green;
         border: 1px solid darken($green, 10%);
@@ -243,7 +246,40 @@ body {
       padding: 0;
       margin: 0;
       li {
-        
+
+      }
+    }
+  }
+
+  button.switch-toggle {
+    width: 90px;
+    cursor: pointer;
+    background-color: $green;
+    padding: 0;
+    padding-right: 20px;
+    border-radius: 5px;
+    border: 1px solid $dark-gray;
+    span.toggle-opt {
+      background: white;
+      width: 100%;
+      display: inline-block;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      border-radius: 5px;
+      font-size: 12px;
+    }
+    span.toggle-opt-2 {
+      display: none;
+    }
+    &[data-checked="false"] {
+      padding: 0;
+      padding-left: 20px;
+      background-color: $blue;
+      span.toggle-opt-2 {
+        display: inline-block;
+      }
+      span.toggle-opt-1 {
+        display: none;
       }
     }
   }
