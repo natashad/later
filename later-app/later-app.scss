@@ -224,6 +224,9 @@ body {
     margin-top: 10px;
     float: right;
     padding: 0px 10px;
+    div.filter-row {
+      margin-bottom: 10px;
+    }
     button.name-filter {
       display: block;
       width: 80%;
@@ -252,6 +255,7 @@ body {
   }
 
   button.switch-toggle {
+    margin-right: 10px;
     width: 90px;
     cursor: pointer;
     background-color: $green;

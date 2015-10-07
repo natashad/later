@@ -81,30 +81,32 @@
 </template>
 
 <template name="filters">
-  <label class="hide-completed filter">
-    <input type="checkbox" checked="{{hideCompleted}}" />Hide Completed
-  </label><br />
-
-  <label class="article-filter filter">
-    <input type="checkbox" checked="{{articleFilter}}" />Article
-  </label>
-  <label class="video-filter filter">
-    <input type="checkbox" checked="{{videoFilter}}" />Video
-  </label>
-  <label class="music-filter filter">
-    <input type="checkbox" checked="{{musicFilter}}" />Music
-  </label>
-  <label class="image-filter filter">
-    <input type="checkbox" checked="{{imageFilter}}" />Image
-  </label>
-  <label class="other-filter filter">
-    <input type="checkbox" checked="{{otherFilter}}" />Other
-  </label><br />
-
-  <button class="inbox-filter filter switch-toggle" data-checked={{inboxFilter}}>
-    <span><span class="toggle-opt toggle-opt-1">INBOX</span></span>
-    <span><span class="toggle-opt toggle-opt-2">OUTBOX</span></span>
-  </button>
+  <div class="filter-row">
+    <button class="inbox-filter filter switch-toggle" data-checked={{inboxFilter}}>
+      <span><span class="toggle-opt toggle-opt-1">INBOX</span></span>
+      <span><span class="toggle-opt toggle-opt-2">OUTBOX</span></span>
+    </button>
+    <label class="hide-completed filter">
+      <input type="checkbox" checked="{{hideCompleted}}" />Hide Completed
+    </label>
+  </div>
+  <div class="filter-row">
+    <label class="article-filter filter">
+      <input type="checkbox" checked="{{articleFilter}}" /> Article
+    </label>
+    <label class="video-filter filter">
+      <input type="checkbox" checked="{{videoFilter}}" /> Video
+    </label>
+    <label class="music-filter filter">
+      <input type="checkbox" checked="{{musicFilter}}" /> Music
+    </label>
+    <label class="image-filter filter">
+      <input type="checkbox" checked="{{imageFilter}}" /> Image
+    </label>
+    <label class="other-filter filter">
+      <input type="checkbox" checked="{{otherFilter}}" /> Other
+    </label>
+  </div>
 </template>
 
 <template name="nameFilter">

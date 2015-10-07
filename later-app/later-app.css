@@ -161,6 +161,8 @@ body {
     margin-top: 10px;
     float: right;
     padding: 0px 10px; }
+    body .right-container div.filter-row {
+      margin-bottom: 10px; }
     body .right-container button.name-filter {
       display: block;
       width: 80%;
@@ -178,6 +180,7 @@ body {
       padding: 0;
       margin: 0; }
   body button.switch-toggle {
+    margin-right: 10px;
     width: 90px;
     cursor: pointer;
     background-color: #5cb85c;
