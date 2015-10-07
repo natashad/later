@@ -10,11 +10,14 @@
       {{> loginButtons}}
     </ul>
     {{#if currentUser}}
-      <div class="notifications-box">
-        <span class="notifications-trigger" title="notifications" alt="notifications">
+      <div class="notifications-box dropdown">
+        <span class="dropdown-toggle notifications-trigger" type="button" id="notifications-menu" title="notifications" alt="notifications" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
           <i class="fa fa-bell"></i>
+          {{#if hasNotifications}}
+            <span class="notifications-count">{{notificationsCount}}</span>
+          {{/if}}
         </span>
-        <div class="notifications-container-dropdown dropdown-menu">
+        <div class="notifications-container-dropdown dropdown-menu" aria-labelledby="notifications-menu">
           {{#if hasNotifications}}
             <ul>
               {{#each notifications}}
@@ -22,7 +25,7 @@
               {{/each}}
             </ul>
           {{else}}
-            You have no unread notifications.
+            <div class="no-notifications">You have no unread notifications.</div>
           {{/if}}
         </div>
       </div>
@@ -163,8 +166,8 @@
 <template name="manageFriendship">
   <li>
     {{getFriendName}} wants to connect with you.
-    <button class="approve">Approve</button>
-    <button class="block">Block</button>
+    <button class="approve"><i class="fa fa-check"></i></button>
+    <button class="block"><i class="fa fa-ban"></i></button>
   </li>
 </template>
 
