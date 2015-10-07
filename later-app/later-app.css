@@ -13,12 +13,35 @@ body {
   body .top-bar {
     width: 100%;
     background: black;
-    padding: 10px 0; }
+    padding: 10px 0;
+    height: 40px; }
     body .top-bar a:hover {
       cursor: pointer; }
+    body .top-bar ul.login-buttons-outer {
+      float: right;
+      margin: 0;
+      padding: 0; }
+    body .top-bar .notifications-box {
+      float: right;
+      position: relative;
+      border: 2px solid #999;
+      border-top: none;
+      border-bottom: none; }
+      body .top-bar .notifications-box .notifications-trigger {
+        color: white;
+        cursor: pointer;
+        padding-left: 20px;
+        padding-right: 20px; }
+      body .top-bar .notifications-box .notifications-container-dropdown {
+        display: none;
+        position: absolute;
+        right: 0;
+        background: white;
+        padding: 10px;
+        margin-top: 10px;
+        left: initial; }
     body .top-bar #login-dropdown-list {
-      list-style-type: none;
-      text-align: right; }
+      list-style-type: none; }
       body .top-bar #login-dropdown-list a.dropdown-toggle {
         padding: 10px 20px;
         margin-right: 2px;
@@ -49,10 +72,13 @@ body {
       body .left-container .search-container input {
         width: 100%;
         display: inline-block;
-        padding: 10px;
+        padding: 7px;
         border-radius: 25px;
+        outline: none;
         padding-left: 50px;
-        border: white; }
+        border: 2px solid white; }
+      body .left-container .search-container input:focus {
+        border: 2px solid #0097cf; }
     body .left-container ul.list-container {
       list-style-type: none;
       margin: 0;
@@ -110,52 +136,21 @@ body {
           font-size: 14px; }
       body .left-container ul.list-container li:first-child {
         border-top: 1px solid #DDD; }
-  body div.new-item-dropdown {
-    float: right;
-    margin-top: 15px; }
-    body div.new-item-dropdown .new-item-trigger {
-      border-radius: 50%;
-      font-weight: bold; }
-    body div.new-item-dropdown .dropdown-menu {
-      left: initial;
-      right: 0; }
   body form.new-item-form {
-    width: 320px; }
-    body form.new-item-form .entry {
-      margin: 10px; }
-      body form.new-item-form .entry label {
-        width: 60px; }
-      body form.new-item-form .entry input {
-        padding: 8px 12px;
-        line-height: 30px;
-        border: 2px solid #ccc;
-        -webkit-border-radius: 8px;
-        -moz-border-radius: 8px;
-        border-radius: 8px;
-        outline: none;
-        height: 34px;
-        font-size: 14px;
-        background-color: #fff; }
-        body form.new-item-form .entry input:focus {
-          border: 2px solid #0097cf;
-          -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-          -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); }
-      body form.new-item-form .entry.submit {
-        text-align: center; }
-      body form.new-item-form .entry.error {
-        color: red; }
-      body form.new-item-form .entry button {
-        font-size: 14px; }
-    body form.new-item-form div.close-form {
-      text-align: right;
-      padding: 5px 0px; }
-      body form.new-item-form div.close-form a {
-        border: 1px solid black;
-        background-color: #DDD;
-        font-size: 16px;
-        padding: 5px 10px;
-        cursor: pointer; }
+    margin-bottom: 10px; }
+    body form.new-item-form .error:not(:empty) {
+      color: red;
+      margin-bottom: 10px; }
+    body form.new-item-form input {
+      line-height: 30px;
+      border: 2px solid #ccc;
+      -webkit-border-radius: 8px;
+      -moz-border-radius: 8px;
+      border-radius: 8px;
+      outline: none; }
+    body form.new-item-form input:focus {
+      border: 2px solid #0097cf;
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6); }
   body .right-container {
     width: 30%;
     margin-top: 10px;
@@ -175,6 +170,8 @@ body {
           background-color: #80c780; }
   body .manage-blocked-container {
     margin-top: 10px; }
+    body .manage-blocked-container .panel-heading h4 {
+      text-align: center; }
     body .manage-blocked-container ul {
       list-style-type: none;
       padding: 0;

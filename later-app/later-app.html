@@ -6,30 +6,42 @@
 <body>
 
   <div class="top-bar">
-  {{> loginButtons}}
+    <ul class="login-buttons-outer">
+      {{> loginButtons}}
+    </ul>
+    {{#if currentUser}}
+      <div class="notifications-box">
+        <span class="notifications-trigger" title="notifications" alt="notifications">
+          <i class="fa fa-bell"></i>
+        </span>
+        <div class="notifications-container-dropdown dropdown-menu">
+          {{#if hasNotifications}}
+            <ul>
+              {{#each notifications}}
+                {{> manageFriendship}}
+              {{/each}}
+            </ul>
+          {{else}}
+            You have no unread notifications.
+          {{/if}}
+        </div>
+      </div>
+    {{/if}}
   </div>
 
   <div class="container">
 
     <header>
-      {{#if currentUser}}
-        <!-- Add New Form -->
-        <div class="dropdown new-item-dropdown">
-          <button id="dLabel" class="btn btn-primary new-item-trigger" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">+</button>
-          {{> addItemForm}}
-        </div>
-      {{/if}}
       <h1>Later...</h1>
     </header>
 
     {{#if currentUser}}
-    <ul class="notifications-container">
-      {{#each notifications}}
-        {{> manageFriendship}}
-      {{/each}}
-    </ul>
 
     <div class="left-container">
+      <div class="dropdown new-item-dropdown">
+        <!-- <button id="dLabel" class="btn btn-primary new-item-trigger" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">+</button> -->
+        {{> addItemForm}}
+      </div>
       <div class="search-container">
         <i class="fa fa-search"></i><input type="text" class="search-bar" name="search" placeholder="Search" />
       </div>
@@ -118,7 +130,6 @@
 
     <div class="item-content">
       <div class="item-left">
-        {{#if isIncoming}}<i class="fa fa-arrow-circle-o-down"></i>{{else}}<i class="fa fa-arrow-circle-o-up"></i>{{/if}}
         {{#if hasImage}}<img src={{image}} height=60 width=60>{{/if}}
       </div>
       <div class="item-right">
@@ -168,19 +179,16 @@
 </template>
 
 <template name="addItemForm">
-  <div class="dropdown-menu" aria-labelledby="dLabel">
-    <form class="new-item-form form-horizontal">
-      <div class="entry error"></div>
-      <div class="entry"><label for="item_receiver">For * </label>
-        <input type="text" name="item_receiver" class="form-control typeahead" placeholder="Type to query"
-           autocomplete="off" spellcheck="off"
-           data-source="friends"
-           data-min-length=0 />
-      </div>
-      <div class="entry"><label for="item_link">Link * </label><input type="text" name="item_link" placeholder="" /></div>
-      <div class="entry submit"><button class="btn btn-primary" type="submit">Save</button></div>
-    </form>
- </div>
+  <form class="new-item-form form-horizontal">
+    <div class="entry error"></div>
+    <label for="item_receiver">For:</label>
+    <input type="text" name="item_receiver" class="form-control typeahead" placeholder="Type a username"
+         autocomplete="off" spellcheck="off"
+         data-source="friends"
+         data-min-length=0 />
+    <label for="item_link">Link:</label> <input type="text" name="item_link" placeholder="" />
+    <button class="btn btn-primary" type="submit">Save</button>
+  </form>
 </template>
 
 <template name="friend-template">
