@@ -124,21 +124,14 @@ body {
           opacity: 0.5; }
         body .left-container ul.list-container li .item-content {
           position: relative; }
-          body .left-container ul.list-container li .item-content .item-left, body .left-container ul.list-container li .item-content .item-right {
-            display: inline-block; }
-          body .left-container ul.list-container li .item-content .item-left {
-            vertical-align: top;
-            margin-right: 10px; }
-            body .left-container ul.list-container li .item-content .item-left .fa {
-              font-size: 20px;
-              color: #999; }
           body .left-container ul.list-container li .item-content div.tags {
             padding-top: 10px; }
+          body .left-container ul.list-container li .item-content .description {
+            font-size: 14px;
+            margin-top: 5px; }
         body .left-container ul.list-container li div.controls {
-          position: absolute;
-          top: 0;
-          right: 0;
-          display: none; }
+          display: none;
+          text-align: right; }
         body .left-container ul.list-container li:hover div.controls {
           display: block; }
           body .left-container ul.list-container li:hover div.controls button {
@@ -152,19 +145,27 @@ body {
         body .left-container ul.list-container li .creator {
           margin: 0 10px;
           padding: 5px;
-          background: #FFFF99;
+          background: #FFEE58;
           border: 1px solid #DDD;
           border-radius: 3px;
           font-size: 14px; }
           body .left-container ul.list-container li .creator.me {
-            background: #CC99FF; }
+            background: #C5CAE9; }
         body .left-container ul.list-container li .tag {
-          margin: 0 10px;
+          margin: 0;
+          margin-right: 5px;
           padding: 3px;
           background: #EEE;
           border: 1px solid #DDD;
           border-radius: 3px;
           font-size: 14px; }
+          body .left-container ul.list-container li .tag i.fa-tag {
+            margin-right: 2px;
+            margin-left: 2px; }
+        body .left-container ul.list-container li .new-tag input {
+          background: #EEE;
+          border: none;
+          width: 80px; }
       body .left-container ul.list-container li:first-child {
         border-top: 1px solid #DDD; }
   body form.new-item-form {

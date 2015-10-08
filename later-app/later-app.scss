@@ -3,8 +3,8 @@ $dark-gray: #333;
 $medium-gray: #999;
 $light-gray: #DDD;
 $lighter-gray: #EEE;
-$yellow: #FFFF99;
-$purple: #CC99FF;
+$yellow: #FFEE58;
+$purple: #C5CAE9;
 $green: #5cb85c;
 body {
 
@@ -163,26 +163,19 @@ body {
         border-top: none;
         .item-content {
           position: relative;
-          .item-left, .item-right {
-            display: inline-block;
-          }
-          .item-left {
-            vertical-align: top;
-            margin-right: 10px;
-            .fa {
-              font-size: 20px;
-              color: $medium-gray;
-            }
-          }
+
           div.tags {
             padding-top: 10px;
           }
+
+          .description {
+            font-size: 14px;
+            margin-top: 5px;
+          }
         }
         div.controls {
-          position: absolute;
-          top: 0;
-          right: 0;
           display: none;
+          text-align: right;
         }
         &:hover div.controls {
           display: block;
@@ -210,12 +203,24 @@ body {
           }
         }
         .tag {
-          margin: 0 10px;
+          margin: 0;
+          margin-right: 5px;
           padding: 3px;
           background: $lighter-gray;
           border: 1px solid $light-gray;
           border-radius: 3px;
           font-size: 14px;
+          i.fa-tag {
+            margin-right: 2px;
+            margin-left: 2px;
+          }
+        }
+        .new-tag {
+          input {
+            background: $lighter-gray;
+            border: none;
+            width: 80px
+          }
         }
       }
       li:first-child {
